@@ -3,3 +3,7 @@ dist/
 .astro/
 .env
 .DS_Store
+
+# Herramientas locales (preview de Claude y capturas de revisión de Impeccable)
+.claude/
+.impeccable/review/
