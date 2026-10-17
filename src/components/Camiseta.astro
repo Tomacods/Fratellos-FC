@@ -1,0 +1,76 @@
+---
+// Espalda de una de las tres camisetas: nombre arqueado sobre el dorsal,
+// como "COMODORO RIVADAVIA 10" en la camiseta real, con parche en la manga.
+import type { Kit } from '../data/club';
+
+interface Props {
+  id: string;
+  back: string;
+  mark: string;
+  kit: Kit;
+  class?: string;
+}
+const { id, back, mark, kit, class: className } = Astro.props;
+
+const backText = back.toUpperCase();
+const nameSize = Math.max(13, Math.min(30, 150 / (backText.length * 0.5)));
+const markSize = mark.length <= 2 ? 124 : mark.length === 3 ? 96 : 76;
+---
+
+<svg
+  class:list={['camiseta', `camiseta--${kit}`, className]}
+  viewBox="0 0 300 320"
+  aria-hidden="true"
+  focusable="false"
+>
+  <defs>
+    <path id={`arco-${id}`} d="M78 96 Q150 64 222 96"></path>
+  </defs>
+  <path class="k-cuerpo" d="M96 18 Q150 40 204 18 L258 38 L298 112 L254 132 L240 112 L240 306 Q150 316 60 306 L60 112 L46 132 L2 112 L42 38 Z"></path>
+  <path d="M96 128 Q120 226 110 306 L94 306 Q104 226 96 128 Z" fill="url(#tela-pliegue)"></path>
+  <path d="M214 122 Q194 220 204 306 L218 306 Q210 220 214 122 Z" fill="url(#tela-pliegue)"></path>
+  <path
+    d="M96 18 Q150 40 204 18 L258 38 L298 112 L254 132 L240 112 L240 306 Q150 316 60 306 L60 112 L46 132 L2 112 L42 38 Z"
+    fill="url(#tela-volumen)"></path>
+  <path class="k-ribete" d="M96 18 Q150 40 204 18 L258 38 L298 112 L254 132 L240 112 L240 306 Q150 316 60 306 L60 112 L46 132 L2 112 L42 38 Z"></path>
+  <path class="k-cuello" d="M96 18 Q150 40 204 18" stroke-width="9"></path>
+  <path class="k-vivo" d="M98 20 Q150 41 202 20" stroke-width="2"></path>
+  <path class="k-puno" d="M298 112 L254 132" stroke-width="7"></path>
+  <path class="k-puno" d="M2 112 L46 132" stroke-width="7"></path>
+  <g transform="translate(32 84) rotate(-28)">
+    <circle class="k-insignia" r="12.5"></circle>
+    <circle class="k-insignia-hilo" r="9.6" stroke-width="1" stroke-dasharray="2 1.6"></circle>
+    <path class="k-estrella" d="M0 -6 L1.53 -2.1 L5.71 -1.85 L2.47 0.8 L3.53 4.85 L0 2.6 L-3.53 4.85 L-2.47 0.8 L-5.71 -1.85 L-1.53 -2.1 Z"></path>
+  </g>
+  <text class="k-nombre camiseta__vinilo" font-size={nameSize} text-anchor="middle">
+    <textPath href={`#arco-${id}`} startOffset="50%">{backText}</textPath>
+  </text>
+  <text
+    class="k-dorsal-fuera camiseta__vinilo camiseta__dorsal"
+    x="150"
+    y="246"
+    font-size={markSize}
+    stroke-width="13"
+    stroke-linejoin="round"
+    paint-order="stroke fill"
+    text-anchor="middle">{mark}</text
+  >
+  <text
+    class="k-dorsal camiseta__vinilo camiseta__dorsal"
+    x="150"
+    y="246"
+    font-size={markSize}
+    stroke-width="4.5"
+    stroke-linejoin="round"
+    paint-order="stroke fill"
+    text-anchor="middle">{mark}</text
+  >
+</svg>
+
+<style>
+  svg {
+    display: block;
+    overflow: visible;
+    filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.35));
+  }
+</style>

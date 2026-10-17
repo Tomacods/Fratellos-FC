@@ -1,0 +1,92 @@
+---
+import { club } from '../data/club';
+import Icon from './Icon.astro';
+
+const links = [
+  { href: '#brasil', label: 'Brasil 2026' },
+  { href: '#campana', label: 'Campaña' },
+  { href: '#plantel', label: 'Plantel' },
+  { href: '#sponsors', label: 'Sponsors' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header class="cuello tela-rib sticky top-0 z-50">
+  <div class="mx-auto flex h-[60px] max-w-camiseta items-center justify-between gap-6 px-4 sm:px-6">
+    <a href="#inicio" class="flex items-center gap-3 no-underline" aria-label="Fratellos Fútbol Club, inicio">
+      <img src="/img/escudo.jpg" alt="" width="36" height="36" class="h-9 w-9 rounded-full" />
+      <span class="font-dorsal text-[1.375rem] font-extrabold uppercase leading-none tracking-[0.04em]">
+        Fratellos <span class="text-naranja">F.C.</span>
+      </span>
+    </a>
+    <nav aria-label="Secciones" class="hidden lg:block">
+      <ul class="flex items-center gap-7">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} class="cuello__link">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a href={club.igDirectUrl} target="_blank" rel="noopener noreferrer" class="cuello__cta">
+      <Icon name="instagram" />
+      <span>Escribinos</span>
+    </a>
+  </div>
+  <span class="cuello__vivo" aria-hidden="true"></span>
+</header>
+
+<style>
+  .cuello__vivo {
+    display: block;
+    height: 3px;
+    background: var(--naranja);
+  }
+  .cuello__link {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.78);
+    text-decoration: none;
+    padding-block: 6px;
+    background-image: linear-gradient(var(--naranja), var(--naranja));
+    background-size: 0 2px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 120ms steps(2, end), color 120ms steps(2, end);
+  }
+  .cuello__link:hover {
+    color: var(--blanco);
+    background-size: 100% 2px;
+  }
+  .cuello__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    background: var(--naranja);
+    color: var(--negro);
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 120ms steps(2, end), color 120ms steps(2, end);
+  }
+  .cuello__cta:hover {
+    background: var(--blanco);
+  }
+  .cuello__cta :global(svg) {
+    width: 20px;
+    height: 20px;
+  }
+</style>

@@ -1,0 +1,33 @@
+---
+import '@fontsource-variable/big-shoulders-display';
+import '@fontsource-variable/archivo/wdth.css';
+import '../styles/kit.css';
+import Telas from '../components/Telas.astro';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#121110" />
+    <link rel="icon" href="/img/escudo.jpg" type="image/jpeg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/img/plantel.jpg" />
+    <meta property="og:locale" content="es_AR" />
+  </head>
+  <body>
+    <Telas />
+    <slot />
+  </body>
+</html>

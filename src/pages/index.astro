@@ -1,310 +1,44 @@
 ---
-const clubInfo = {
-  name: "Fratellos Fútbol Club",
-  nickname: "El Frate",
-  city: "Comodoro Rivadavia, Chubut",
-  instagramUrl: "https://www.instagram.com/fratellosfutbolclub",
-  igDirectUrl: "https://ig.me/m/fratellosfutbolclub",
-};
-
-const matches = [
-  {
-    badge: "Campeón Serie B",
-    title: "Ráfaga FC vs. Fratellos FC — Gran Final (Vuelta)",
-    subtitle: "Complejo Santa Lucía • Goles: Jorge Galván, Maximiliano Barría y Santy Hoopmann (x2)",
-    ctaText: "Ver Final en YouTube",
-    url: "https://www.youtube.com/watch?v=gD7NS5jnpn8",
-  },
-  {
-    badge: "Victoria Ida",
-    title: "Fratellos FC vs. Ráfaga FC — Gran Final (Ida)",
-    subtitle: "Triunfo en la primera final con gol agónico de Santiago Hoopmann",
-    ctaText: "Leer Crónica en Pasta de Campeón",
-    url: "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1",
-  },
-  {
-    badge: "Semifinal",
-    title: "Fratellos FC vs. Despreciados FC — Semifinal Serie B",
-    subtitle: "Liga Comodoro Cup • Transmisión completa de GOAT Producciones",
-    ctaText: "Ver Semifinal en YouTube",
-    url: "https://www.youtube.com/watch?v=W53OT88SA_Y",
-  },
-];
-
-const players = [
-  {
-    name: "Víctor Villouta",
-    role: "MVP Comodoro Cup Serie B",
-    category: "final",
-    bio: "Elegido Jugador Más Valioso (MVP) en el Cuadro de Honor oficial tras la consagración de Fratellos FC.",
-    linkText: "Fuente Pasta de Campeón",
-    linkUrl: "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1",
-  },
-  {
-    name: "Santiago 'Santy' Hoopmann",
-    role: "Figura & Goleador de la Final",
-    category: "final",
-    bio: "Autor del gol agónico en la final de ida y de un doblete clave en la revancha en Santa Lucía.",
-    linkText: "Fuente Pasta de Campeón",
-    linkUrl: "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1",
-  },
-  {
-    name: "Facundo Ledesma",
-    role: "Ala Zurdo • Selección Argentina F7",
-    category: "seleccion",
-    bio: "Oriundo de Gral. Garmendia (Tucumán). Convocado a la Selección Argentina F7 (Copa Argentina Misiones y Copa Aniversario Chubut 2026).",
-    linkText: "Presentación Oficial en IG",
-    linkUrl: "https://www.instagram.com/reel/DZcoKSXNlEB/",
-  },
-  {
-    name: "Maximiliano Barría",
-    role: "Goleador en la Final • Camada 2025",
-    category: "final camada2025",
-    bio: "Incorporación oficial del club y autor de uno de los tantos definitorios en la final ante Ráfaga FC.",
-    linkText: "Comunicado Oficial",
-    linkUrl: "https://www.instagram.com/p/DGV7_tHxvL2/",
-  },
-  {
-    name: "Jorge Galván",
-    role: "Protagonista en la Final",
-    category: "final",
-    bio: "Encargado de abrir el marcador para Fratellos FC en la final de vuelta en el complejo Santa Lucía.",
-    linkText: "Fuente Pasta de Campeón",
-    linkUrl: "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1",
-  },
-  {
-    name: "Facundo González & Juan Pablo Mancilla Canales",
-    role: "Referentes • Liga de las Américas",
-    category: "seleccion",
-    bio: "Voceros del plantel en Fair Play (100.1) impulsando la campaña hacia la Liga de las Américas en Brasil.",
-    linkText: "Ver Nota en Fair Play",
-    linkUrl: "https://www.instagram.com/p/DeAf9VhAZGE/",
-  },
-  {
-    name: "Axel Igor, Franco Mansilla y Franco Morales",
-    role: "Incorporaciones Oficiales",
-    category: "camada2025",
-    bio: "Bienvenida institucional para defender la camiseta naranja, negra y blanca en la Liga Comodoro Cup.",
-    linkText: "Comunicado Oficial",
-    linkUrl: "https://www.instagram.com/p/DGV7_tHxvL2/",
-  },
-  {
-    name: "Maximiliano Ortiz, Emiliano Orquera y Enzo Ralil",
-    role: "Incorporaciones Oficiales",
-    category: "camada2025",
-    bio: "Parte de la camada presentada oficialmente por Fratellos Fútbol Club en Comodoro Rivadavia.",
-    linkText: "Comunicado Oficial",
-    linkUrl: "https://www.instagram.com/p/DGV7_tHxvL2/",
-  },
-];
+import Base from '../layouts/Base.astro';
+import Cuello from '../components/Cuello.astro';
+import Pecho from '../components/Pecho.astro';
+import Planilla from '../components/Planilla.astro';
+import Plantel from '../components/Plantel.astro';
+import Sponsors from '../components/Sponsors.astro';
+import Estampa from '../components/Estampa.astro';
+import Etiqueta from '../components/Etiqueta.astro';
+import { club } from '../data/club';
 ---
 
-<html lang="es" class="scroll-smooth bg-[#090b0f] text-slate-50">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{clubInfo.name} | {clubInfo.nickname} — {clubInfo.city}</title>
-    <meta name="description" content="Landing page oficial de Fratellos Fútbol Club (El Frate) de Comodoro Rivadavia. Campeón Serie B Comodoro Cup, Serie A y Liga de las Américas." />
-  </head>
-  <body class="min-h-screen font-sans antialiased selection:bg-[#ff6b00] selection:text-black">
-    <header class="sticky top-0 z-50 border-b border-white/10 bg-[#090b0f]/90 backdrop-blur-md">
-      <div class="mx-auto flex h-18 max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#" class="flex items-center gap-3 text-lg font-black uppercase tracking-wider">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-[#ff6b00] bg-[#12161f] text-xs font-black text-[#ff6b00]">
-            FFC
-          </span>
-          <span>Fratellos <span class="text-[#ff6b00]">FC</span></span>
-        </a>
-        <nav class="hidden items-center gap-7 text-sm font-semibold text-slate-400 md:flex">
-          <a href="#campana" class="hover:text-[#ff6b00] transition">Campaña & Serie A</a>
-          <a href="#plantel" class="hover:text-[#ff6b00] transition">Plantel</a>
-          <a href="#sponsors" class="hover:text-[#ff6b00] transition">Sponsors</a>
-          <a href="#contacto" class="hover:text-[#ff6b00] transition">Pruebas & Hinchada</a>
-        </nav>
-        <a
-          href={clubInfo.igDirectUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="rounded-lg bg-[#ff6b00] px-4 py-2 text-sm font-bold text-black shadow-lg shadow-[#ff6b00]/25 hover:bg-[#ff8533] transition"
-        >
-          Escribir por IG
-        </a>
-      </div>
-    </header>
+<Base
+  title={`${club.name} | ${club.nickname}, ${club.city}`}
+  description="Sitio oficial de Fratellos Fútbol Club (El Frate), fútbol 7 de Comodoro Rivadavia. Campeón de la Serie B y la Serie A 2025 de la Comodoro Cup y representante argentino en la Liga de las Américas 2026 en Porto Alegre."
+>
+  <a href="#contenido" class="salto">Saltar al contenido</a>
+  <Cuello />
+  <main id="contenido">
+    <Pecho />
+    <Planilla />
+    <Plantel />
+    <Sponsors />
+    <Estampa />
+  </main>
+  <Etiqueta />
+</Base>
 
-    <section class="relative overflow-hidden border-b border-white/10 py-20">
-      <div class="mx-auto grid max-w-6xl gap-12 px-6 lg:grid-cols-12 lg:items-center">
-        <div class="lg:col-span-7">
-          <span class="mb-4 inline-flex items-center gap-2 rounded-full border border-[#ff6b00]/40 bg-[#ff6b00]/15 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-[#ff984f]">
-            ⚽ Fútbol 7 Competitivo • {clubInfo.city}
-          </span>
-          <h1 class="mb-5 text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Hermandad y garra en la camiseta <span class="text-[#ff6b00]">Naranja, Negra y Blanca</span>.
-          </h1>
-          <p class="mb-8 max-w-xl text-lg text-slate-400">
-            Conocidos como <strong>"{clubInfo.nickname}"</strong>: campeones en la Liga Comodoro Cup (Santa Lucía), protagonistas en la Serie A patagónica y representantes de Comodoro rumbo a la Liga de las Américas en Brasil.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <a href="#contacto" class="rounded-xl bg-[#ff6b00] px-6 py-3 font-bold text-black hover:bg-[#ff8533] transition">
-              Acompañar como Sponsor
-            </a>
-            <a href="#contacto" class="rounded-xl border border-white/15 bg-white/5 px-6 py-3 font-bold text-white hover:border-[#ff6b00] hover:text-[#ff6b00] transition">
-              Probarme / Amistosos
-            </a>
-            <a href={clubInfo.instagramUrl} target="_blank" rel="noopener noreferrer" class="rounded-xl border border-white/15 px-5 py-3 font-bold text-slate-300 hover:border-white/40 transition">
-              @fratellosfutbolclub
-            </a>
-          </div>
-        </div>
-
-        <div class="lg:col-span-5">
-          <div class="rounded-2xl border border-[#ff6b00]/40 bg-[#12161f] p-7 shadow-2xl">
-            <div class="mb-5 flex items-center justify-between border-b border-white/10 pb-4">
-              <div>
-                <p class="text-xs font-extrabold uppercase tracking-widest text-[#ff6b00]">Resumen Institucional</p>
-                <h2 class="text-xl font-black">Fratellos Fútbol Club</h2>
-              </div>
-              <div class="flex gap-1.5">
-                <span class="h-4 w-4 rounded bg-[#ff6b00]"></span>
-                <span class="h-4 w-4 rounded border border-white/30 bg-[#090b0f]"></span>
-                <span class="h-4 w-4 rounded bg-white"></span>
-              </div>
-            </div>
-            <div class="space-y-3 text-sm">
-              <div class="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <strong class="block text-base text-white">🏆 Campeón Serie B — Comodoro Cup</strong>
-                <span class="text-slate-400">Victoria global sobre Ráfaga FC en el complejo Santa Lucía y ascenso a Serie A (Junio 2025).</span>
-              </div>
-              <div class="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <strong class="block text-base text-white">🌎 Rumbo a la Liga de las Américas</strong>
-                <span class="text-slate-400">Proyección internacional hacia Brasil difundida en Fair Play (100.1).</span>
-              </div>
-              <div class="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                <strong class="block text-base text-white">⭐ MVP & Selección Argentina F7</strong>
-                <span class="text-slate-400">Víctor Villouta (MVP del torneo) y refuerzos como Facundo Ledesma (Selección F7).</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="campana" class="border-b border-white/10 py-16">
-      <div class="mx-auto max-w-6xl px-6">
-        <span class="text-xs font-extrabold uppercase tracking-widest text-[#ff6b00]">Campaña & Transmisiones</span>
-        <h2 class="mt-1 text-3xl font-black">Partidos Históricos y Presente en Serie A</h2>
-        <div class="mt-8 space-y-4">
-          {matches.map((m) => (
-            <div class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-white/10 bg-[#12161f] p-5">
-              <div>
-                <span class="inline-block rounded bg-[#ff6b00]/15 px-2.5 py-0.5 text-xs font-bold uppercase text-[#ff984f]">
-                  {m.badge}
-                </span>
-                <h3 class="mt-1 text-lg font-extrabold">{m.title}</h3>
-                <p class="text-sm text-slate-400">{m.subtitle}</p>
-              </div>
-              <a
-                href={m.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="rounded-lg border border-white/15 bg-white/5 px-4 py-2 text-sm font-bold hover:border-[#ff6b00] hover:text-[#ff6b00] transition"
-              >
-                {m.ctaText} →
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="plantel" class="border-b border-white/10 py-16">
-      <div class="mx-auto max-w-6xl px-6">
-        <span class="text-xs font-extrabold uppercase tracking-widest text-[#ff6b00]">Protagonistas</span>
-        <h2 class="mt-1 text-3xl font-black">Plantel y Referentes</h2>
-        <div class="mt-6 flex flex-wrap gap-2">
-          <button class="roster-tab rounded-lg bg-[#ff6b00] px-4 py-2 text-xs font-bold text-black" data-filter="all">Todos</button>
-          <button class="roster-tab rounded-lg border border-white/10 bg-[#12161f] px-4 py-2 text-xs font-bold text-slate-300" data-filter="final">Héroes de la Final & MVP</button>
-          <button class="roster-tab rounded-lg border border-white/10 bg-[#12161f] px-4 py-2 text-xs font-bold text-slate-300" data-filter="seleccion">Proyección Nacional & Brasil</button>
-          <button class="roster-tab rounded-lg border border-white/10 bg-[#12161f] px-4 py-2 text-xs font-bold text-slate-300" data-filter="camada2025">Camada Oficial</button>
-        </div>
-
-        <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {players.map((p) => (
-            <article class="player-card flex flex-col justify-between rounded-xl border border-white/10 bg-[#12161f] p-6" data-category={p.category}>
-              <div>
-                <span class="text-xs font-extrabold uppercase tracking-wider text-[#ff6b00]">{p.role}</span>
-                <h3 class="mt-1 text-xl font-black">{p.name}</h3>
-                <p class="mt-2 text-sm text-slate-400">{p.bio}</p>
-              </div>
-              <a href={p.linkUrl} target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-xs font-bold text-[#ff6b00] hover:underline">
-                {p.linkText} →
-              </a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section id="sponsors" class="py-16">
-      <div class="mx-auto max-w-6xl px-6" id="contacto">
-        <div class="grid gap-10 rounded-2xl border border-[#ff6b00]/40 bg-gradient-to-br from-[#ff6b00]/15 to-[#12161f] p-8 lg:grid-cols-12 lg:items-center">
-          <div class="lg:col-span-6">
-            <span class="text-xs font-extrabold uppercase tracking-widest text-[#ff6b00]">Contacto 100% vía Instagram</span>
-            <h2 class="mt-1 text-3xl font-black">Sumate como Sponsor, Jugador o Hincha</h2>
-            <p class="mt-3 text-slate-300">
-              Canalizamos todas las propuestas directamente por mensaje privado en <strong>@fratellosfutbolclub</strong>. Armá tu mensaje acá abajo, copialo con un clic y pegalo en nuestro chat de Instagram.
-            </p>
-          </div>
-          <div class="lg:col-span-6 rounded-xl border border-white/10 bg-[#090b0f] p-6">
-            <div class="grid gap-4">
-              <div>
-                <label class="mb-1 block text-xs font-bold text-slate-400">Tu Nombre o Comercio</label>
-                <input id="ig-name" type="text" placeholder="Ej. Marca local / Jugador / Hincha" class="w-full rounded-lg border border-white/10 bg-[#12161f] px-3.5 py-2.5 text-sm text-white" />
-              </div>
-              <div>
-                <label class="mb-1 block text-xs font-bold text-slate-400">Motivo de contacto</label>
-                <select id="ig-reason" class="w-full rounded-lg border border-white/10 bg-[#12161f] px-3.5 py-2.5 text-sm text-white">
-                  <option value="Sponsoreo en camiseta o redes oficiales">🤝 Quiero ser Sponsor (Camiseta / Redes / Viaje a Brasil)</option>
-                  <option value="Postularme para pruebas de jugadores en Fratellos FC">⚽ Quiero probarme en el plantel</option>
-                  <option value="Organizar un partido amistoso de Fútbol 7">🏆 Invitar a un partido amistoso / torneo</option>
-                  <option value="Encargar camiseta oficial o sumarme a la hinchada">👕 Conseguir la camiseta / Hinchada</option>
-                </select>
-              </div>
-              <button id="ig-send-btn" type="button" class="w-full rounded-lg bg-[#ff6b00] py-3 text-sm font-black text-black hover:bg-[#ff8533] transition">
-                Copiar Mensaje y Abrir Instagram DM →
-              </button>
-              <p id="ig-feedback" class="hidden text-xs font-bold text-emerald-400">
-                ✓ Mensaje copiado al portapapeles. Abriendo @fratellosfutbolclub...
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <script is:inline>
-      document.querySelectorAll('.roster-tab').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const filter = btn.getAttribute('data-filter');
-          document.querySelectorAll('.roster-tab').forEach((b) => {
-            b.className = 'roster-tab rounded-lg border border-white/10 bg-[#12161f] px-4 py-2 text-xs font-bold text-slate-300';
-          });
-          btn.className = 'roster-tab rounded-lg bg-[#ff6b00] px-4 py-2 text-xs font-bold text-black';
-          document.querySelectorAll('.player-card').forEach((card) => {
-            const cat = card.getAttribute('data-category') || '';
-            card.style.display = filter === 'all' || cat.includes(filter) ? 'flex' : 'none';
-          });
-        });
-      });
-
-      document.getElementById('ig-send-btn')?.addEventListener('click', () => {
-        const name = document.getElementById('ig-name').value.trim() || 'un interesado';
-        const reason = document.getElementById('ig-reason').value;
-        const text = `¡Hola Fratellos FC! 🟠⚫⚪ Soy ${name} y me contacto desde la web por: ${reason}. ¡Quedo atento!`;
-        navigator.clipboard?.writeText(text).catch(() => {});
-        document.getElementById('ig-feedback')?.classList.remove('hidden');
-        window.open('https://ig.me/m/fratellosfutbolclub', '_blank', 'noopener,noreferrer');
-      });
-    </script>
-  </body>
-</html>
+<style>
+  .salto {
+    position: absolute;
+    left: 12px;
+    top: -60px;
+    z-index: 100;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background: var(--naranja);
+    color: var(--negro);
+    font-weight: 700;
+  }
+  .salto:focus {
+    top: 12px;
+  }
+</style>

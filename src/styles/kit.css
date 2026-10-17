@@ -1,0 +1,463 @@
+@tailwind base;
+@tailwind components;
+
+/*
+  Sistema "La Camiseta": cada superficie es una de las tres camisetas del club.
+  La unidad es el paso de la raya fina de la camiseta negra: 12px.
+*/
+:root {
+  --naranja: #f4500a;
+  --naranja-hondo: #c23f06;
+  --negro: #121110;
+  --negro-tela: #1c1a18;
+  --blanco: #ffffff;
+  --tinta: #121110;
+  --tinta-suave: #4f4a45;
+  --u: 12px;
+
+  /* Malla dry-fit: perforaciones en tresbolillo. */
+  --malla-blanca: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Ccircle cx='2' cy='3.5' r='1' fill='%23121110' fill-opacity='.07'/%3E%3Ccircle cx='6' cy='10.5' r='1' fill='%23121110' fill-opacity='.07'/%3E%3C/svg%3E");
+  --malla-naranja: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Ccircle cx='2' cy='3.5' r='1.05' fill='%237a2400' fill-opacity='.22'/%3E%3Ccircle cx='6' cy='10.5' r='1.05' fill='%237a2400' fill-opacity='.22'/%3E%3C/svg%3E");
+  --malla-negra: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Ccircle cx='2' cy='3.5' r='1' fill='%23ffffff' fill-opacity='.035'/%3E%3Ccircle cx='6' cy='10.5' r='1' fill='%23ffffff' fill-opacity='.035'/%3E%3C/svg%3E");
+
+  color-scheme: light;
+  accent-color: var(--naranja);
+  scrollbar-color: var(--naranja) var(--negro);
+}
+
+html {
+  background: var(--negro);
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: var(--blanco);
+  color: var(--tinta);
+  font-family: 'Archivo Variable', system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--naranja);
+}
+
+::selection {
+  background: var(--naranja);
+  color: var(--negro);
+}
+
+:focus-visible {
+  outline: 3px solid var(--naranja);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+a {
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1.5px;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+  /* ---------- Telas ---------- */
+  .tela-blanca {
+    background-color: var(--blanco);
+    background-image: var(--malla-blanca);
+    color: var(--tinta);
+  }
+
+  .tela-naranja {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--negro);
+  }
+
+  /* Camiseta negra: raya fina naranja cada 2u. */
+  .tela-rayada {
+    background-color: var(--negro);
+    background-image:
+      var(--malla-negra),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 calc(var(--u) * 2 - 1px),
+        rgb(244 80 10 / 0.3) calc(var(--u) * 2 - 1px) calc(var(--u) * 2)
+      );
+    color: var(--blanco);
+  }
+
+  /* Cuello acanalado (rib) del cuello de la camiseta. */
+  .tela-rib {
+    background-color: var(--negro);
+    background-image:
+      linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 40%, rgb(0 0 0 / 0.35)),
+      repeating-linear-gradient(90deg, #121110 0 3px, #24211e 3px 5px);
+    color: var(--blanco);
+  }
+
+  /* Costura de dos agujas (dobladillo). */
+  .costura {
+    --puntada: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10'%3E%3Crect width='7' height='1.5'/%3E%3Crect y='8.5' width='7' height='1.5'/%3E%3C/svg%3E");
+    height: 10px;
+    background-color: currentColor;
+    -webkit-mask: var(--puntada) repeat-x 0 0 / 12px 10px;
+    mask: var(--puntada) repeat-x 0 0 / 12px 10px;
+    opacity: 0.35;
+  }
+
+  /* ---------- Banda del pecho (camiseta blanca) ---------- */
+  .banda {
+    display: grid;
+    width: 100%;
+  }
+
+  .banda__naranja,
+  .banda__negra {
+    display: block;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.86;
+    letter-spacing: 0.005em;
+    text-align: center;
+    font-size: clamp(3.25rem, 6.4vw + 0.5rem, 5.75rem);
+    padding-block: calc(var(--u) * 1.1) calc(var(--u) * 0.8);
+  }
+
+  .banda__naranja {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--blanco);
+    -webkit-text-stroke: 0.09em var(--negro);
+    paint-order: stroke fill;
+  }
+
+  .banda__negra {
+    background-color: var(--negro);
+    background-image: var(--malla-negra);
+    color: var(--blanco);
+  }
+
+  .banda__filete {
+    display: block;
+    height: 7px;
+    margin-top: 5px;
+    background: var(--naranja);
+  }
+
+  /* ---------- Parche de manga (bordado, con pespunte) ---------- */
+  .parche {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    gap: 2px;
+    padding: 10px 16px 11px;
+    border-radius: 10px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+    line-height: 1;
+    text-align: center;
+    box-shadow:
+      0 1px 1px rgb(0 0 0 / 0.25),
+      0 6px 14px -8px rgb(0 0 0 / 0.5),
+      inset 0 1px 0 rgb(255 255 255 / 0.12);
+  }
+
+  .parche::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px dashed currentColor;
+    border-radius: 7px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .parche--negro {
+    background-color: var(--negro);
+    background-image: var(--malla-negra);
+    color: var(--blanco);
+  }
+
+  .parche--naranja {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--negro);
+  }
+
+  .parche--blanco {
+    background-color: var(--blanco);
+    background-image: var(--malla-blanca);
+    color: var(--negro);
+  }
+
+  .parche__top {
+    font-size: 1.375rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+  }
+
+  .parche__bottom {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- Vinilo termotransferible (botones) ---------- */
+  .vinilo {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--negro);
+    color: var(--blanco);
+    /* Vinilo termotransferible mate: relleno plano y filo de corte. */
+    box-shadow:
+      inset 0 0 0 3px var(--negro),
+      inset 0 0 0 4px rgb(255 255 255 / 0.26);
+    transition:
+      transform 120ms steps(2, end),
+      box-shadow 120ms steps(2, end),
+      background-color 120ms steps(2, end),
+      color 120ms steps(2, end);
+  }
+
+  .vinilo:hover {
+    background-color: var(--naranja);
+    color: var(--negro);
+    box-shadow:
+      inset 0 0 0 3px var(--naranja),
+      inset 0 0 0 4px rgb(18 17 16 / 0.4);
+  }
+
+  .vinilo:active {
+    transform: translateY(1px);
+  }
+
+  .vinilo--naranja {
+    background-color: var(--naranja);
+    color: var(--negro);
+    box-shadow:
+      inset 0 0 0 3px var(--naranja),
+      inset 0 0 0 4px rgb(18 17 16 / 0.42);
+  }
+
+  .vinilo--naranja:hover {
+    background-color: var(--blanco);
+    color: var(--negro);
+    box-shadow:
+      inset 0 0 0 3px var(--blanco),
+      inset 0 0 0 4px rgb(18 17 16 / 0.42);
+  }
+
+  .vinilo--borde {
+    background: transparent;
+    color: currentColor;
+    box-shadow: inset 0 0 0 2px currentColor;
+  }
+
+  .vinilo--borde:hover {
+    background-color: var(--naranja);
+    color: var(--negro);
+    box-shadow: inset 0 0 0 2px var(--naranja);
+  }
+
+  .vinilo svg {
+    width: 20px;
+    height: 20px;
+    flex: none;
+  }
+
+  /* ---------- Camisetas SVG: los tres modelos ---------- */
+  .camiseta__vinilo {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.04em;
+  }
+  .camiseta__dorsal {
+    letter-spacing: 0;
+  }
+  .k-cuello,
+  .k-vivo,
+  .k-puno,
+  .k-ribete,
+  .k-insignia-hilo {
+    fill: none;
+  }
+  .k-cuello,
+  .k-v {
+    stroke: var(--negro);
+    stroke-linecap: round;
+  }
+  .k-v {
+    fill: var(--negro);
+  }
+  .camiseta--negra .k-cuerpo {
+    fill: url(#tela-rayas);
+  }
+  .camiseta--blanca .k-cuerpo {
+    fill: url(#tela-malla-blanca);
+  }
+  .camiseta--naranja .k-cuerpo {
+    fill: url(#tela-malla-naranja);
+  }
+  .camiseta--negra .k-vivo,
+  .camiseta--blanca .k-vivo,
+  .camiseta--negra .k-puno,
+  .camiseta--blanca .k-puno {
+    stroke: var(--naranja);
+  }
+  .camiseta--naranja .k-vivo {
+    stroke: var(--blanco);
+  }
+  .camiseta--naranja .k-puno {
+    stroke: var(--negro);
+  }
+  .camiseta--negra .k-ribete {
+    stroke: rgb(255 255 255 / 0.38);
+    stroke-width: 1.5;
+  }
+  .camiseta--naranja .k-ribete {
+    stroke: rgb(18 17 16 / 0.55);
+    stroke-width: 1.5;
+  }
+  .camiseta--negra .k-nombre {
+    fill: var(--blanco);
+  }
+  .camiseta--blanca .k-nombre,
+  .camiseta--naranja .k-nombre {
+    fill: var(--negro);
+  }
+  /* Dorsal de dos capas: relleno, filete interior y contorno exterior. */
+  .camiseta--negra .k-dorsal {
+    fill: var(--blanco);
+    stroke: var(--negro);
+  }
+  .camiseta--blanca .k-dorsal,
+  .camiseta--naranja .k-dorsal {
+    fill: var(--negro);
+    stroke: var(--blanco);
+  }
+  .camiseta--negra .k-dorsal-fuera,
+  .camiseta--blanca .k-dorsal-fuera {
+    fill: var(--naranja);
+    stroke: var(--naranja);
+  }
+  .camiseta--naranja .k-dorsal-fuera {
+    fill: var(--negro);
+    stroke: var(--negro);
+  }
+  .camiseta--negra .k-insignia {
+    fill: var(--naranja);
+  }
+  .camiseta--blanca .k-insignia {
+    fill: var(--negro);
+  }
+  .camiseta--naranja .k-insignia {
+    fill: var(--blanco);
+  }
+  .camiseta--negra .k-insignia-hilo {
+    stroke: var(--negro);
+  }
+  .camiseta--blanca .k-insignia-hilo,
+  .camiseta--naranja .k-insignia-hilo {
+    stroke: var(--naranja);
+  }
+  .camiseta--negra .k-estrella {
+    fill: var(--negro);
+  }
+  .camiseta--blanca .k-estrella,
+  .camiseta--naranja .k-estrella {
+    fill: var(--naranja);
+  }
+  /* Frente: banda del pecho según el modelo. */
+  .camiseta--blanca .k-banda-arriba,
+  .camiseta--negra .k-banda-arriba,
+  .camiseta--blanca .k-filete,
+  .camiseta--negra .k-filete {
+    fill: var(--naranja);
+  }
+  .camiseta--naranja .k-banda-arriba,
+  .camiseta--naranja .k-filete,
+  .camiseta--blanca .k-banda-abajo {
+    fill: var(--negro);
+  }
+  .camiseta--negra .k-banda-abajo,
+  .camiseta--naranja .k-banda-abajo {
+    fill: var(--blanco);
+  }
+  .camiseta--negra .k-v-vivo,
+  .camiseta--blanca .k-v-vivo {
+    stroke: var(--naranja);
+  }
+  .camiseta--naranja .k-v-vivo {
+    stroke: var(--blanco);
+  }
+  .k-texto-arriba {
+    fill: var(--blanco);
+    stroke: var(--negro);
+  }
+  .camiseta--blanca .k-texto-abajo {
+    fill: var(--blanco);
+  }
+  .camiseta--negra .k-texto-abajo,
+  .camiseta--naranja .k-texto-abajo {
+    fill: var(--negro);
+  }
+
+  /* ---------- Títulos de sección: tipografía de dorsal ---------- */
+  .titulo-dorsal {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.88;
+    letter-spacing: 0.005em;
+    font-size: clamp(3rem, 5.4vw + 1rem, 5.75rem);
+  }
+
+  /* ---------- Estampado en caliente: dos cuadros, sin fundidos ---------- */
+  .estampar {
+    animation: estampar 180ms steps(2, end) both;
+  }
+
+@keyframes estampar {
+  0% {
+    opacity: 0.25;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@tailwind utilities;

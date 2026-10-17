@@ -1,0 +1,339 @@
+---
+import { americas, club, reasons, titles } from '../data/club';
+import Icon from './Icon.astro';
+
+// Estado de la cuenta regresiva al momento del build; el script lo recalcula en el navegador.
+function countdown(now: Date) {
+  const start = new Date(americas.start).getTime();
+  const end = new Date(americas.end).getTime();
+  const t = now.getTime();
+  if (t < start) {
+    const days = Math.ceil((start - t) / 86_400_000);
+    return days === 1 ? 'Falta 1 día' : `Faltan ${days} días`;
+  }
+  if (t < end) return 'En juego en Porto Alegre';
+  return 'Jugamos la Liga de las Américas';
+}
+
+const left = titles.slice(0, 2);
+const right = titles.slice(2);
+---
+
+<section id="inicio" class="pecho tela-blanca relative" aria-labelledby="pecho-titulo">
+  <svg class="pecho__v" viewBox="0 0 240 84" aria-hidden="true" focusable="false">
+    <path d="M0 0 H240 L120 84 Z" fill="#121110"></path>
+    <path d="M18 0 L120 70 L222 0" fill="none" stroke="#F4500A" stroke-width="3.5"></path>
+  </svg>
+
+  <div class="pecho__escudo">
+    <img src="/img/escudo.jpg" alt="Escudo de Fratellos Fútbol Club" width="150" height="150" />
+  </div>
+
+  <h1 id="pecho-titulo" class="banda pecho__banda">
+    <span class="sr-only">Fratellos Fútbol Club: </span>
+    <span class="banda__naranja">De Comodoro</span>
+    <span class="banda__negra">a Porto Alegre</span>
+    <span class="banda__filete" aria-hidden="true"></span>
+  </h1>
+
+  <div class="mx-auto max-w-[52rem] px-4 pt-7 text-center sm:px-6">
+    <p class="pecho__bajada">
+      Fratellos Fútbol Club, «El Frate», es fútbol 7 competitivo de {club.city.split(',')[0]}: campeón de la Serie B
+      y la Serie A 2025, presente en el Mundial de Clubes y ahora representante argentino en la Liga de las Américas,
+      del 19 al 22 de noviembre en Brasil.
+    </p>
+
+    <div class="mt-7" role="group" aria-labelledby="pecho-acciones">
+      <p id="pecho-acciones" class="pecho__pregunta">¿Para qué nos escribís?</p>
+      <div class="pecho__acciones">
+        {
+          reasons.map((r) => (
+            <a
+              href={club.igDirectUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="vinilo"
+              data-dm-reason={r.id}
+            >
+              {r.patch}
+            </a>
+          ))
+        }
+      </div>
+      <p class="pecho__estado" data-dm-status aria-live="polite">
+        Te armamos el mensaje y se abre el chat de {club.instagram}.
+      </p>
+    </div>
+  </div>
+
+  <ul class="mangas" aria-label="Títulos y torneos">
+    <li class="manga manga--izq">
+      <ul class="manga__lista">
+        {
+          left.map((t) => (
+            <li class={`parche parche--${t.tone}`}>
+              <span class="parche__top">{t.top}</span>
+              <span class="parche__bottom">{t.bottom}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+    <li class="manga manga--der">
+      <ul class="manga__lista">
+        {
+          right.map((t) => (
+            <li class={`parche parche--${t.tone}`}>
+              <span class="parche__top">{t.top}</span>
+              <span class="parche__bottom">{t.bottom}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </li>
+  </ul>
+
+  <div class="pecho__ruedo">
+    <a href="#brasil" class="etiqueta" aria-label="Liga de las Américas 2026, Porto Alegre">
+      <span class="etiqueta__escudo" aria-hidden="true"><img src="/img/escudo.jpg" alt="" width="40" height="40" /></span>
+      <span class="etiqueta__texto">
+        <span class="etiqueta__linea">Liga de las Américas 2026</span>
+        <strong class="etiqueta__cuenta" data-cuenta>{countdown(new Date())}</strong>
+        <span class="etiqueta__linea">Porto Alegre · 19 al 22 nov</span>
+      </span>
+    </a>
+  </div>
+  <div class="costura text-negro" aria-hidden="true"></div>
+</section>
+
+<script>
+  import { americas } from '../data/club';
+  import { buildMessage, copyText } from '../scripts/mensajes';
+  import type { Reason } from '../data/club';
+
+  const el = document.querySelector<HTMLElement>('[data-cuenta]');
+  if (el) {
+    const start = new Date(americas.start).getTime();
+    const end = new Date(americas.end).getTime();
+    const t = Date.now();
+    if (t < start) {
+      const days = Math.ceil((start - t) / 86_400_000);
+      el.textContent = days === 1 ? 'Falta 1 día' : `Faltan ${days} días`;
+    } else if (t < end) {
+      el.textContent = 'En juego en Porto Alegre';
+    } else {
+      el.textContent = 'Jugamos la Liga de las Américas';
+    }
+  }
+
+  const status = document.querySelector<HTMLElement>('[data-dm-status]');
+  document.querySelectorAll<HTMLAnchorElement>('[data-dm-reason]').forEach((link) => {
+    link.addEventListener('click', async () => {
+      const reason = link.dataset.dmReason as Reason;
+      const ok = await copyText(buildMessage(reason, ''));
+      if (status) {
+        status.dataset.state = ok ? 'ok' : 'error';
+        status.textContent = ok
+          ? 'Mensaje copiado. Pegalo en el chat de @fratellosfutbolclub que se abrió y mandalo.'
+          : 'Se abrió el chat de @fratellosfutbolclub. Contanos ahí para qué nos escribís.';
+      }
+    });
+  });
+</script>
+
+<style>
+  .pecho {
+    padding-top: 0;
+    overflow: clip;
+  }
+
+  .pecho__v {
+    display: block;
+    width: clamp(120px, 13vw, 200px);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .pecho__escudo {
+    width: clamp(72px, 6.5vw, 96px);
+    margin: 14px auto 0;
+    border-radius: 999px;
+    box-shadow:
+      0 0 0 4px var(--blanco),
+      0 0 0 5.5px rgb(18 17 16 / 0.14),
+      0 10px 22px -10px rgb(0 0 0 / 0.55);
+  }
+
+  .pecho__escudo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 999px;
+  }
+
+  .pecho__banda {
+    margin-top: 22px;
+  }
+
+  .pecho__bajada {
+    font-size: clamp(1.0625rem, 0.6vw + 0.95rem, 1.25rem);
+    line-height: 1.55;
+    font-stretch: 96%;
+    color: var(--tinta);
+    max-width: 62ch;
+    margin-inline: auto;
+  }
+
+  .pecho__pregunta {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pecho__acciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  @media (min-width: 768px) {
+    .pecho__acciones {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .pecho__estado {
+    margin-top: 12px;
+    font-size: 0.9375rem;
+    color: var(--tinta-suave);
+  }
+
+  .pecho__estado[data-state='ok'] {
+    color: var(--tinta);
+    font-weight: 600;
+  }
+
+  /* Parches de manga */
+  .mangas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px auto 0;
+    padding-inline: 16px;
+  }
+
+  .manga__lista {
+    display: flex;
+    gap: 12px;
+  }
+
+  .mangas .parche {
+    min-width: 96px;
+  }
+
+  @media (max-width: 1023px) {
+    .mangas .parche__top {
+      font-size: 1.125rem;
+    }
+    .mangas .parche__bottom {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .mangas {
+      position: absolute;
+      inset: 40px 0 auto 0;
+      margin: 0;
+      padding-inline: clamp(24px, 4vw, 72px);
+      justify-content: space-between;
+      pointer-events: none;
+    }
+    .manga__lista {
+      flex-direction: column;
+      gap: 14px;
+    }
+    .mangas .parche {
+      min-width: 132px;
+      padding: 14px 20px 15px;
+    }
+    .manga--izq .parche {
+      transform: rotate(-5deg);
+    }
+    .manga--der .parche {
+      transform: rotate(5deg);
+    }
+    .manga--izq .parche + .parche {
+      margin-left: 22px;
+    }
+    .manga--der .parche + .parche {
+      margin-right: 22px;
+    }
+  }
+
+  /* Ruedo con la etiqueta (jock tag) */
+  .pecho__ruedo {
+    display: flex;
+    justify-content: center;
+    max-width: 78rem;
+    margin: 24px auto 0;
+    padding: 0 16px 24px;
+  }
+
+
+  .etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px 10px 10px;
+    border-radius: 6px;
+    background: var(--negro);
+    color: var(--blanco);
+    text-decoration: none;
+    box-shadow:
+      inset 0 0 0 1px rgb(255 255 255 / 0.12),
+      0 8px 16px -10px rgb(0 0 0 / 0.6);
+    transition: background-color 120ms steps(2, end);
+  }
+
+  .etiqueta:hover {
+    background: var(--negro-tela);
+  }
+
+  .etiqueta__escudo img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+  }
+
+  .etiqueta__texto {
+    display: grid;
+    gap: 3px;
+    text-align: left;
+  }
+
+  .etiqueta__linea {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.72);
+    line-height: 1.1;
+  }
+
+  .etiqueta__cuenta {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--naranja);
+    font-variant-numeric: tabular-nums;
+  }
+</style>

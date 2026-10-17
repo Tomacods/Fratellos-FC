@@ -1,0 +1,279 @@
+---
+import { players, rosterFilters } from '../data/club';
+import Camiseta from './Camiseta.astro';
+import Icon from './Icon.astro';
+---
+
+<section id="plantel" class="tela-naranja" aria-labelledby="plantel-titulo">
+  <div class="mx-auto max-w-camiseta px-4 pb-24 pt-20 sm:px-6 lg:pt-24">
+    <div class="grid gap-12 lg:grid-cols-12 lg:items-center">
+      <figure class="plantel__foto lg:col-span-6">
+        <img
+          src="/img/plantel.jpg"
+          alt="El plantel de Fratellos posando en la cancha con la camiseta blanca de banda naranja y negra de Timbó Store, junto al cuerpo técnico."
+          width="640"
+          height="426"
+          loading="lazy"
+        />
+        <figcaption>Con la blanca de Timbó Store</figcaption>
+      </figure>
+      <div class="lg:col-span-6 lg:pl-6">
+        <h2 id="plantel-titulo" class="titulo-dorsal">El plantel</h2>
+        <p class="mt-5 max-w-[48ch] text-[1.0625rem] text-negro/80">
+          Los que se pusieron la naranja, la blanca y la negra. Cada espalda lleva el dato que la hizo famosa.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3" role="group" aria-label="Filtrar el plantel">
+          {
+            rosterFilters.map((f, i) => (
+              <button type="button" class="filtro" data-filter={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+                {f.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <ul class="espaldas mt-20" aria-live="polite">
+      {
+        players.map((p, i) => (
+          <li class="espalda" data-category={p.category}>
+            {p.backs ? (
+              <div class="abanico espalda__camiseta" data-n={p.backs.length}>
+                {p.backs.map((b, j) => (
+                  <Camiseta
+                    id={`p${i}-${j}`}
+                    back={b}
+                    mark={p.mark}
+                    kit={j % 2 === 0 ? p.kit : p.kit === 'negra' ? 'blanca' : 'negra'}
+                    class="abanico__camiseta"
+                  />
+                ))}
+              </div>
+            ) : (
+              <Camiseta
+                id={`p${i}`}
+                back={p.back}
+                mark={p.dorsal ? String(p.dorsal) : p.mark}
+                kit={p.kit}
+                class="espalda__camiseta"
+              />
+            )}
+            <h3 class="espalda__nombre">{p.name}</h3>
+            <p class="espalda__rol">{p.role}</p>
+            <p class="espalda__bio">{p.bio}</p>
+            <a href={p.linkUrl} target="_blank" rel="noopener noreferrer" class="espalda__link">
+              {p.linkText}
+              <Icon name="externo" class="h-4 w-4" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="costura text-negro" aria-hidden="true"></div>
+</section>
+
+<script>
+  import { stamp } from '../scripts/mensajes';
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filtro');
+  const cards = document.querySelectorAll<HTMLElement>('.espalda');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'all';
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cards.forEach((card) => {
+        const cats = (card.dataset.category ?? '').split(' ');
+        const show = filter === 'all' || cats.includes(filter);
+        card.hidden = !show;
+        if (show) stamp(card.querySelector('.espalda__camiseta'));
+      });
+    });
+  });
+</script>
+
+<style>
+  .plantel__foto {
+    margin: 0;
+  }
+
+  .plantel__foto img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 10px solid var(--blanco);
+    box-shadow: 0 22px 40px -22px rgb(0 0 0 / 0.7);
+    transform: rotate(-1.5deg);
+  }
+
+  .plantel__foto figcaption {
+    margin-top: 16px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .filtro {
+    position: relative;
+    min-height: 44px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background-color: var(--blanco);
+    background-image: var(--malla-blanca);
+    color: var(--negro);
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.0625rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow:
+      0 1px 1px rgb(0 0 0 / 0.25),
+      0 6px 12px -8px rgb(0 0 0 / 0.55);
+    transition: background-color 120ms steps(2, end), color 120ms steps(2, end);
+  }
+
+  .filtro::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px dashed currentColor;
+    border-radius: 7px;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .filtro:hover {
+    background-color: var(--negro-tela);
+    color: var(--blanco);
+  }
+
+  .filtro[aria-pressed='true'] {
+    background-color: var(--negro);
+    background-image: var(--malla-negra);
+    color: var(--blanco);
+  }
+
+  .filtro:focus-visible {
+    outline-color: var(--negro);
+  }
+
+  .espaldas {
+    display: grid;
+    gap: 64px 48px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  @media (min-width: 1024px) {
+    .espaldas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 639px) {
+    .espaldas {
+      display: flex;
+      gap: 24px;
+      margin-inline: -16px;
+      padding: 0 16px 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 16px;
+      scrollbar-color: var(--negro) transparent;
+    }
+    .espalda {
+      flex: 0 0 82%;
+      scroll-snap-align: start;
+    }
+  }
+
+  .espalda[hidden] {
+    display: none;
+  }
+
+  :global(.espalda__camiseta) {
+    width: min(100%, 280px);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  /* Grupos: las camisetas de la camada en abanico, una por apellido. */
+  .abanico {
+    position: relative;
+    aspect-ratio: 1;
+  }
+
+  /* Las de atrás van más arriba, así el apellido queda sobre los hombros de la de adelante. */
+  .abanico :global(.abanico__camiseta) {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 62%;
+    height: auto;
+    transform-origin: 50% 100%;
+  }
+
+  .abanico[data-n='3'] :global(.abanico__camiseta:nth-child(1)) {
+    transform: translateX(-96%) rotate(-7deg);
+  }
+  .abanico[data-n='3'] :global(.abanico__camiseta:nth-child(2)) {
+    transform: translateX(-4%) rotate(7deg);
+  }
+  .abanico[data-n='3'] :global(.abanico__camiseta:nth-child(3)) {
+    top: 22%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .abanico[data-n='2'] :global(.abanico__camiseta:nth-child(1)) {
+    transform: translateX(-86%) rotate(-6deg);
+  }
+  .abanico[data-n='2'] :global(.abanico__camiseta:nth-child(2)) {
+    top: 20%;
+    transform: translateX(-18%) rotate(4deg);
+    z-index: 1;
+  }
+
+  .espalda__nombre {
+    margin-top: 28px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .espalda__rol {
+    margin-top: 8px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+  }
+
+  .espalda__bio {
+    margin-top: 8px;
+    font-size: 0.9375rem;
+    color: rgb(18 17 16 / 0.8);
+    max-width: 42ch;
+  }
+
+  .espalda__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--negro);
+    text-decoration: underline;
+  }
+
+  .espalda__link:hover {
+    color: var(--blanco);
+  }
+
+  .espalda__link:focus-visible {
+    outline-color: var(--negro);
+  }
+</style>

@@ -1,0 +1,371 @@
+---
+import { americas, matches, type Outcome } from '../data/club';
+import Icon from './Icon.astro';
+
+const outcomeLabel: Record<Outcome, string> = {
+  ganado: 'Ganado',
+  perdido: 'Perdido',
+  campeon: 'Campeón',
+  clasificado: 'A la final',
+};
+---
+
+<section id="campana" class="tela-rayada" aria-labelledby="campana-titulo">
+  <div class="mx-auto max-w-camiseta px-4 pb-24 pt-20 sm:px-6 lg:pt-24">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+      <h2 id="campana-titulo" class="titulo-dorsal lg:col-span-6">La campaña</h2>
+      <p class="max-w-[52ch] text-[1.0625rem] text-white/80 lg:col-span-6 lg:pb-2">
+        Cada resultado con su fuente: las placas del club, las transmisiones y las crónicas. En 2026 debutamos en la
+        Liga de Honor y terminamos entre los cuatro mejores.
+      </p>
+    </div>
+
+    <article id="brasil" class="proximo mt-12" aria-labelledby="brasil-titulo">
+      <div class="proximo__texto">
+        <h3 id="brasil-titulo" class="proximo__titulo">Liga de las Américas 2026</h3>
+        <p class="proximo__datos">
+          Próximo torneo · {americas.city} · {americas.dates} · Football 7 International · US$ 200 mil en premios
+        </p>
+        <p class="mt-4 max-w-[54ch] text-white/80">
+          Fratellos está confirmado para representar a Argentina en la competencia de clubes más grande del continente.
+          Para viajar, el plantel busca sponsors: lo contamos en Fair Play, por La 100.1.
+        </p>
+        <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <a href="#contacto" class="vinilo vinilo--naranja" data-preset="sponsor">
+            Bancar el viaje
+            <Icon name="flecha" />
+          </a>
+          <a href={americas.sourceUrl} target="_blank" rel="noopener noreferrer" class="planilla__fuente">
+            Confirmación de @f7americas
+            <Icon name="externo" class="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+      <figure class="proximo__foto">
+        <img
+          src="/img/fairplay.jpg"
+          alt="Integrantes de Fratellos en los estudios de La 100.1 mostrando la camiseta naranja número 3, una celeste y blanca número 15 y una negra número 24."
+          width="480"
+          height="640"
+          loading="lazy"
+        />
+        <figcaption>En Fair Play, La 100.1 · octubre de 2026</figcaption>
+      </figure>
+    </article>
+
+    <div class="mt-16">
+      <table class="planilla">
+        <caption class="planilla__caption">Planilla de resultados</caption>
+        <thead>
+          <tr>
+            <th scope="col">Torneo</th>
+            <th scope="col">Partido</th>
+            <th scope="col">Resultado</th>
+            <th scope="col">Goles del Frate</th>
+            <th scope="col">Fuente</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            matches.map((m) => (
+              <tr class={`planilla__fila planilla__fila--${m.outcome}`}>
+                <td data-label="Torneo">
+                  <span class="planilla__torneo">{m.tournament}</span>
+                  <span class="planilla__instancia">{m.stage}</span>
+                </td>
+                <td data-label="Partido" class="planilla__partido">
+                  <span class={m.home === 'Fratellos' ? 'es-frate' : ''}>{m.home}</span>
+                  <span class="planilla__vs" aria-label="contra">
+                    vs
+                  </span>
+                  <span class={m.away === 'Fratellos' ? 'es-frate' : ''}>{m.away}</span>
+                </td>
+                <td data-label="Resultado">
+                  <span class="marcador">
+                    {m.score ? (
+                      <>
+                        <span class="marcador__goles">{m.score}</span>
+                        <span class="sr-only">, {outcomeLabel[m.outcome]}</span>
+                      </>
+                    ) : (
+                      <span class="marcador__palabra">{outcomeLabel[m.outcome]}</span>
+                    )}
+                  </span>
+                </td>
+                <td data-label="Goles del Frate" class="planilla__goles">
+                  {m.scorers ?? '—'}
+                </td>
+                <td data-label="Fuente">
+                  <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer" class="planilla__fuente">
+                    {m.plate && <img src={m.plate} alt="" width="40" height="50" loading="lazy" class="planilla__placa" />}
+                    <span>{m.sourceLabel}</span>
+                    <Icon name={m.sourceUrl.includes('youtube') ? 'play' : 'externo'} class="h-4 w-4 flex-none" />
+                  </a>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="costura text-white" aria-hidden="true"></div>
+</section>
+
+<style>
+  .proximo {
+    display: grid;
+    gap: 36px;
+    padding: 36px clamp(20px, 3vw, 48px);
+    border-radius: 6px;
+    background: rgb(18 17 16 / 0.82);
+    box-shadow:
+      inset 0 0 0 2px var(--naranja),
+      0 24px 48px -28px rgb(0 0 0 / 0.9);
+    scroll-margin-top: 84px;
+  }
+
+  @media (min-width: 900px) {
+    .proximo {
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+      align-items: center;
+    }
+  }
+
+  .proximo__titulo {
+    margin-top: 0;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.25rem, 3.4vw + 1rem, 3.75rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+  }
+
+  .proximo__datos {
+    margin-top: 12px;
+    font-weight: 600;
+    font-stretch: 92%;
+    color: var(--naranja);
+  }
+
+  .proximo__foto {
+    margin: 0;
+    justify-self: center;
+    width: min(100%, 300px);
+    transform: rotate(2deg);
+  }
+
+  .proximo__foto img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 8px solid var(--blanco);
+    border-bottom-width: 8px;
+    box-shadow: 0 18px 30px -16px rgb(0 0 0 / 0.9);
+  }
+
+  .proximo__foto figcaption {
+    margin-top: 10px;
+    font-size: 0.8125rem;
+    color: rgb(255 255 255 / 0.7);
+    text-align: center;
+  }
+
+  /* Planilla reglada: columnas fijas, el estado cambia la fila, nunca la grilla. */
+  .planilla {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .planilla__caption {
+    caption-side: top;
+    text-align: left;
+    padding-bottom: 12px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .planilla th {
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.65);
+    border-bottom: 2px solid var(--blanco);
+  }
+
+  .planilla td {
+    padding: 18px 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid rgb(255 255 255 / 0.22);
+  }
+
+  .planilla__torneo {
+    display: block;
+    font-size: 0.8125rem;
+    color: rgb(255 255 255 / 0.68);
+  }
+
+  .planilla__instancia {
+    display: block;
+    margin-top: 2px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .planilla__partido {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 1.375rem;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .planilla__partido .es-frate {
+    color: var(--naranja);
+  }
+
+  .planilla__vs {
+    margin-inline: 6px;
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  .marcador {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 96px;
+    min-height: 44px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .marcador__goles {
+    font-size: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .marcador__palabra {
+    font-size: 1.125rem;
+    letter-spacing: 0.06em;
+  }
+
+  .planilla__fila--ganado .marcador,
+  .planilla__fila--campeon .marcador {
+    background: var(--naranja);
+    color: var(--negro);
+  }
+
+  .planilla__fila--campeon .marcador {
+    background: var(--blanco);
+  }
+
+  .planilla__fila--perdido .marcador {
+    box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.55);
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .planilla__fila--clasificado .marcador {
+    box-shadow: inset 0 0 0 2px var(--naranja);
+    color: var(--naranja);
+  }
+
+  .planilla__goles {
+    font-size: 0.9375rem;
+    color: rgb(255 255 255 / 0.86);
+    max-width: 30ch;
+  }
+
+  .planilla__fuente {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--blanco);
+    text-decoration: underline;
+    text-decoration-color: rgb(244 80 10 / 0.8);
+  }
+
+  .planilla__fuente:hover {
+    color: var(--naranja);
+  }
+
+  .planilla__placa {
+    width: 40px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.3);
+  }
+
+  @media (max-width: 767px) {
+    .planilla thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    .planilla caption {
+      display: block;
+      width: 100%;
+    }
+    .planilla,
+    .planilla tbody,
+    .planilla tr,
+    .planilla td {
+      display: block;
+    }
+    .planilla tr {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 6px 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgb(255 255 255 / 0.22);
+    }
+    .planilla td {
+      padding: 0;
+      border: 0;
+    }
+    .planilla td:nth-child(1) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .planilla td:nth-child(2) {
+      grid-column: 1;
+      grid-row: 2;
+      white-space: normal;
+    }
+    .planilla td:nth-child(3) {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+    }
+    .planilla td:nth-child(4),
+    .planilla td:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+    .planilla td:nth-child(4)::before {
+      content: attr(data-label) ': ';
+      color: rgb(255 255 255 / 0.6);
+    }
+    .marcador {
+      min-width: 84px;
+    }
+  }
+</style>

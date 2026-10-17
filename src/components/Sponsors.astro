@@ -1,0 +1,282 @@
+---
+import { club, mainSponsor, sponsors, sponsorSpots } from '../data/club';
+import Icon from './Icon.astro';
+---
+
+<section id="sponsors" class="tela-blanca" aria-labelledby="sponsors-titulo">
+  <div class="mx-auto grid max-w-camiseta gap-16 px-4 pb-24 pt-20 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:pt-24">
+    <div class="lg:col-span-7">
+      <h2 id="sponsors-titulo" class="titulo-dorsal">Los que bancan al Frate</h2>
+      <p class="mt-5 max-w-[50ch] text-[1.0625rem] text-tinta-suave">
+        Marcas de Comodoro que se ponen la camiseta con nosotros, en la cancha y en las redes.
+      </p>
+
+      <figure class="pecho-sponsor mt-12">
+        <div class="pecho-sponsor__banda" role="img" aria-label={`${mainSponsor.name}, sponsor principal`}>
+          <span class="pecho-sponsor__naranja">Timbó</span>
+          <span class="pecho-sponsor__negra">Store</span>
+          <span class="pecho-sponsor__filete" aria-hidden="true"></span>
+        </div>
+        <figcaption class="pecho-sponsor__lugar">{mainSponsor.place}</figcaption>
+      </figure>
+
+      <ul class="lockups mt-12" aria-label="Sponsors">
+        {
+          sponsors.map((s) => (
+            <li>
+              <a href={`https://www.instagram.com/${s.handle}`} target="_blank" rel="noopener noreferrer" class="lockup">
+                <span class="lockup__marca">{s.name}</span>
+                <span class="lockup__handle">@{s.handle}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="percha lg:col-span-5">
+    <div class="sumate">
+      <h3 class="sumate__titulo">Sumá tu marca rumbo a Brasil</h3>
+      <p class="mt-4 text-tinta-suave">
+        Tres maneras de acompañar al club en la temporada y en la Liga de las Américas.
+      </p>
+      <ul class="mt-8">
+        {
+          sponsorSpots.map((s) => (
+            <li class="lugar">
+              <span class="lugar__titulo">{s.title}</span>
+              <span class="lugar__texto">{s.text}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={club.igDirectUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="vinilo mt-9 w-full"
+        data-dm-reason="sponsor"
+      >
+        <Icon name="instagram" />
+        Quiero ser sponsor
+      </a>
+      <p class="mt-3 text-[0.9375rem] text-tinta-suave" data-dm-status-sponsor aria-live="polite">
+        Te copiamos un mensaje listo y se abre el chat de {club.instagram}.
+      </p>
+    </div>
+    </div>
+  </div>
+  <div class="costura text-negro" aria-hidden="true"></div>
+</section>
+
+<script>
+  import { buildMessage, copyText } from '../scripts/mensajes';
+
+  const status = document.querySelector<HTMLElement>('[data-dm-status-sponsor]');
+  document.querySelector<HTMLAnchorElement>('#sponsors [data-dm-reason]')?.addEventListener('click', async () => {
+    const ok = await copyText(buildMessage('sponsor', ''));
+    if (status) {
+      status.textContent = ok
+        ? 'Mensaje copiado. Pegalo en el chat de @fratellosfutbolclub que se abrió y mandalo.'
+        : 'Se abrió el chat de @fratellosfutbolclub. Contanos qué marca querés sumar.';
+    }
+  });
+</script>
+
+<style>
+  .pecho-sponsor {
+    margin-inline: 0;
+    max-width: 560px;
+  }
+
+  .pecho-sponsor__banda {
+    display: grid;
+    text-decoration: none;
+    box-shadow: 0 18px 30px -22px rgb(0 0 0 / 0.65);
+  }
+
+  .pecho-sponsor__naranja,
+  .pecho-sponsor__negra {
+    display: block;
+    padding: 14px 24px 12px;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.75rem, 4.4vw + 1rem, 4.5rem);
+    line-height: 0.86;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .pecho-sponsor__naranja {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--blanco);
+    -webkit-text-stroke: 0.09em var(--negro);
+    paint-order: stroke fill;
+  }
+
+  .pecho-sponsor__negra {
+    background-color: var(--negro);
+    background-image: var(--malla-negra);
+    color: var(--blanco);
+  }
+
+  .pecho-sponsor__filete {
+    display: block;
+    height: 6px;
+    margin-top: 4px;
+    background: var(--naranja);
+  }
+
+
+  .pecho-sponsor__lugar {
+    margin-top: 14px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--tinta-suave);
+  }
+
+  /* Estampados de vinilo, uno al lado del otro, separados por pespunte. */
+  .lockups {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1.5px dashed rgb(18 17 16 / 0.3);
+  }
+
+  .lockups li {
+    border-bottom: 1.5px dashed rgb(18 17 16 / 0.3);
+    flex: 1 1 auto;
+  }
+
+  .lockups li + li {
+    border-left: 1.5px dashed rgb(18 17 16 / 0.3);
+  }
+
+  .lockup {
+    display: grid;
+    gap: 4px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--negro);
+    transition: background-color 120ms steps(2, end), color 120ms steps(2, end);
+  }
+
+  .lockup:hover {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+
+  .lockup__marca {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 1.2vw + 1rem, 2rem);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .lockup__handle {
+    font-size: 0.8125rem;
+    color: currentColor;
+    opacity: 0.72;
+  }
+
+  /* Sumá tu marca: etiqueta colgante (hang tag) de la camiseta nueva. */
+  .percha {
+    position: relative;
+    align-self: start;
+    padding-top: 28px;
+    filter: drop-shadow(0 22px 22px rgb(0 0 0 / 0.28));
+  }
+
+  .percha::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 58px;
+    background: var(--negro);
+    transform: translateX(-50%);
+  }
+
+  .sumate {
+    position: relative;
+    padding: 64px clamp(20px, 2.5vw, 36px) 36px;
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--negro);
+    clip-path: polygon(28px 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%, 0 28px);
+  }
+
+  .sumate::before {
+    content: '';
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    border-radius: 999px;
+    background: var(--blanco);
+    box-shadow:
+      inset 0 2px 3px rgb(0 0 0 / 0.35),
+      0 0 0 3px var(--negro);
+    transform: translateX(-50%);
+  }
+
+  .sumate::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1.5px dashed rgb(18 17 16 / 0.45);
+    clip-path: polygon(22px 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%, 0 22px);
+    pointer-events: none;
+  }
+
+  .sumate p {
+    color: rgb(18 17 16 / 0.82);
+  }
+
+  .sumate__titulo {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 1.6vw + 1.4rem, 2.75rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+
+  .lugar {
+    display: grid;
+    gap: 6px;
+    padding: 16px 0;
+    border-top: 1.5px dashed rgb(18 17 16 / 0.45);
+  }
+
+  .lugar:last-child {
+    border-bottom: 1.5px dashed rgb(18 17 16 / 0.45);
+  }
+
+  .lugar__titulo {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .lugar__texto {
+    font-size: 0.9375rem;
+    color: rgb(18 17 16 / 0.82);
+  }
+
+  .sumate :global(.vinilo:focus-visible) {
+    outline-color: var(--negro);
+  }
+
+  .sumate [data-dm-status-sponsor] {
+    color: rgb(18 17 16 / 0.82);
+  }
+</style>

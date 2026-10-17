@@ -1,0 +1,678 @@
+---
+import { club, reasons } from '../data/club';
+import { buildMessage } from '../scripts/mensajes';
+import Icon from './Icon.astro';
+
+const initial = reasons[1];
+const SHIRT =
+  'M96 18 Q150 40 204 18 L258 38 L298 112 L254 132 L240 112 L240 306 Q150 316 60 306 L60 112 L46 132 L2 112 L42 38 Z';
+const STAR = 'M0 -6 L1.53 -2.1 L5.71 -1.85 L2.47 0.8 L3.53 4.85 L0 2.6 L-3.53 4.85 L-2.47 0.8 L-5.71 -1.85 L-1.53 -2.1 Z';
+const kits = [
+  { id: 'naranja', label: 'Naranja' },
+  { id: 'blanca', label: 'Blanca' },
+  { id: 'negra', label: 'Negra' },
+];
+---
+
+<section id="contacto" class="tela-rayada" aria-labelledby="contacto-titulo">
+  <div class="mx-auto max-w-camiseta px-4 pb-24 pt-20 sm:px-6 lg:pt-24">
+    <div class="grid gap-6 lg:grid-cols-12 lg:items-end">
+      <h2 id="contacto-titulo" class="titulo-dorsal lg:col-span-6">Estampá tu nombre</h2>
+      <p class="max-w-[52ch] text-[1.0625rem] text-white/80 lg:col-span-6 lg:pb-2">
+        Todo el contacto es por Instagram. Contanos para qué nos escribís, estampamos tu nombre en la camiseta y te
+        dejamos el mensaje listo para pegar en el chat.
+      </p>
+    </div>
+
+    <form class="estampa mt-12" data-estampa-form novalidate>
+      <div class="estampa__vitrina">
+        <div class="estampa__prenda" data-estampa-prenda data-face="espalda">
+          <svg viewBox="0 0 300 320" aria-hidden="true" focusable="false" class="estampa__svg camiseta camiseta--blanca">
+            <defs>
+              <clipPath id="cuerpo-estampa">
+                <path d={SHIRT}></path>
+              </clipPath>
+              <clipPath id="escudo-estampa">
+                <circle cx="150" cy="96" r="21"></circle>
+              </clipPath>
+              <path id="arco-estampa" d="M78 96 Q150 64 222 96"></path>
+            </defs>
+
+            <path class="k-cuerpo" d={SHIRT}></path>
+            <path d="M96 128 Q120 226 110 306 L94 306 Q104 226 96 128 Z" fill="url(#tela-pliegue)"></path>
+            <path d="M214 122 Q194 220 204 306 L218 306 Q210 220 214 122 Z" fill="url(#tela-pliegue)"></path>
+
+            <g class="cara cara--frente">
+              <g clip-path="url(#cuerpo-estampa)">
+                <rect class="k-banda-arriba" x="0" y="146" width="300" height="46"></rect>
+                <rect class="k-banda-abajo" x="0" y="192" width="300" height="36"></rect>
+                <rect class="k-filete" x="0" y="232" width="300" height="5"></rect>
+              </g>
+              <path class="k-v" d="M96 18 L150 64 L204 18 Z"></path>
+              <path class="k-v-vivo" d="M106 18 L150 56 L194 18" fill="none" stroke-width="2.5"></path>
+              <image
+                href="/img/escudo.jpg"
+                x="129"
+                y="75"
+                width="42"
+                height="42"
+                clip-path="url(#escudo-estampa)"
+                preserveAspectRatio="xMidYMid slice"></image>
+              <text
+                class="camiseta__vinilo k-texto-arriba"
+                data-banda-arriba
+                x="150"
+                y="182"
+                font-size="34"
+                stroke-width="3"
+                paint-order="stroke fill"
+                text-anchor="middle">TU MARCA</text
+              >
+              <text class="camiseta__vinilo k-texto-abajo" data-banda-abajo x="150" y="220" font-size="26" text-anchor="middle"
+                >RUMBO A BRASIL</text
+              >
+            </g>
+
+            <g class="cara cara--espalda">
+              <path class="k-cuello" d="M96 18 Q150 40 204 18" stroke-width="9"></path>
+              <path class="k-vivo" d="M98 20 Q150 41 202 20" stroke-width="2"></path>
+              <text class="camiseta__vinilo k-nombre" data-nombre font-size="30" text-anchor="middle">
+                <textPath href="#arco-estampa" startOffset="50%">TU NOMBRE</textPath>
+              </text>
+              <text
+                class="camiseta__vinilo camiseta__dorsal k-dorsal-fuera"
+                data-numero
+                x="150"
+                y="248"
+                font-size="124"
+                stroke-width="13"
+                stroke-linejoin="round"
+                paint-order="stroke fill"
+                text-anchor="middle">10</text
+              >
+              <text
+                class="camiseta__vinilo camiseta__dorsal k-dorsal"
+                data-numero
+                x="150"
+                y="248"
+                font-size="124"
+                stroke-width="4.5"
+                stroke-linejoin="round"
+                paint-order="stroke fill"
+                text-anchor="middle">10</text
+              >
+            </g>
+
+            <path d={SHIRT} fill="url(#tela-volumen)" pointer-events="none"></path>
+            <path class="k-ribete" d={SHIRT}></path>
+            <path class="k-puno" d="M298 112 L254 132" stroke-width="7"></path>
+            <path class="k-puno" d="M2 112 L46 132" stroke-width="7"></path>
+            <g transform="translate(32 84) rotate(-28)">
+              <circle class="k-insignia" r="12.5"></circle>
+              <circle class="k-insignia-hilo" r="9.6" stroke-width="1" stroke-dasharray="2 1.6"></circle>
+              <path class="k-estrella" d={STAR}></path>
+            </g>
+          </svg>
+          <p class="estampa__cara" data-cara-label>Espalda · camiseta blanca</p>
+        </div>
+      </div>
+
+      <div class="estampa__panel">
+        <span class="estampa__presilla" aria-hidden="true"></span>
+        <fieldset class="estampa__bloque estampa__bloque--motivos">
+          <legend class="estampa__legend">¿Para qué nos escribís?</legend>
+          <div class="estampa__motivos">
+            {
+              reasons.map((r) => (
+                <label class="motivo">
+                  <input
+                    type="radio"
+                    name="motivo"
+                    value={r.id}
+                    checked={r.id === initial.id}
+                    data-name-label={r.nameLabel}
+                    data-placeholder={r.placeholder}
+                  />
+                  <span class="motivo__parche">{r.label}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="estampa__bloque estampa__bloque--campos estampa__campos">
+          <div>
+            <label for="estampa-nombre" class="estampa__label" data-name-label-text>
+              {initial.nameLabel}
+            </label>
+            <input
+              id="estampa-nombre"
+              name="nombre"
+              type="text"
+              maxlength="22"
+              autocomplete="name"
+              placeholder={initial.placeholder}
+              class="estampa__input"
+            />
+          </div>
+          <div data-numero-campo>
+            <label for="estampa-numero" class="estampa__label">Número que te pedís</label>
+            <input
+              id="estampa-numero"
+              name="numero"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              max="99"
+              placeholder="10"
+              class="estampa__input estampa__input--numero"
+            />
+          </div>
+        </div>
+
+        <fieldset class="estampa__bloque estampa__bloque--kit">
+          <legend class="estampa__label">Camiseta</legend>
+          <div class="estampa__kits">
+            {
+              kits.map((k) => (
+                <label class="kit">
+                  <input type="radio" name="kit" value={k.id} checked={k.id === 'blanca'} />
+                  <span class={`kit__muestra kit__muestra--${k.id}`} aria-hidden="true" />
+                  <span class="kit__nombre">{k.label}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="estampa__bloque estampa__bloque--mensaje">
+          <p class="estampa__label" id="estampa-preview-label">Así te queda el mensaje</p>
+          <output class="estampa__texto" data-mensaje aria-labelledby="estampa-preview-label"
+            >{buildMessage(initial.id, '')}</output
+          >
+        </div>
+
+        <div class="estampa__bloque estampa__bloque--enviar">
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-4">
+            <a href={club.igDirectUrl} target="_blank" rel="noopener noreferrer" class="vinilo vinilo--naranja" data-enviar>
+              <Icon name="copiar" />
+              Copiar y abrir Instagram
+            </a>
+            <a href={club.instagramUrl} target="_blank" rel="noopener noreferrer" class="estampa__perfil">
+              Ver {club.instagram}
+              <Icon name="externo" class="h-4 w-4" />
+            </a>
+          </div>
+          <p class="estampa__estado" data-estado aria-live="polite"></p>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { buildMessage, copyText, stamp } from '../scripts/mensajes';
+  import type { Kit, Reason } from '../data/club';
+
+  const form = document.querySelector<HTMLFormElement>('[data-estampa-form]');
+  const prenda = document.querySelector<HTMLElement>('[data-estampa-prenda]');
+  if (form && prenda) {
+    const nameInput = form.querySelector<HTMLInputElement>('#estampa-nombre')!;
+    const numInput = form.querySelector<HTMLInputElement>('#estampa-numero')!;
+    const numField = form.querySelector<HTMLElement>('[data-numero-campo]')!;
+    const nameLabel = form.querySelector<HTMLElement>('[data-name-label-text]')!;
+    const output = form.querySelector<HTMLElement>('[data-mensaje]')!;
+    const estado = form.querySelector<HTMLElement>('[data-estado]')!;
+    const send = form.querySelector<HTMLAnchorElement>('[data-enviar]')!;
+    const caraLabel = prenda.querySelector<HTMLElement>('[data-cara-label]')!;
+    const svg = prenda.querySelector<SVGSVGElement>('svg')!;
+    const nombre = prenda.querySelector<SVGTextElement>('[data-nombre]')!;
+    const nombrePath = nombre.querySelector('textPath')!;
+    const numeros = prenda.querySelectorAll<SVGTextElement>('[data-numero]');
+    const bandaArriba = prenda.querySelector<SVGTextElement>('[data-banda-arriba]')!;
+    const bandaAbajo = prenda.querySelector<SVGTextElement>('[data-banda-abajo]')!;
+    const kitNames: Record<Kit, string> = { naranja: 'naranja', blanca: 'blanca', negra: 'negra' };
+
+    const fit = (text: string, max: number, room: number, min = 13) =>
+      Math.max(min, Math.min(max, room / Math.max(1, text.length * 0.5)));
+
+    let timer = 0;
+
+    const checked = (name: string, fallback: string) =>
+      form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? fallback;
+
+    const number = () => {
+      const n = Number.parseInt(numInput.value, 10);
+      return Number.isFinite(n) && n >= 1 && n <= 99 ? String(n) : '';
+    };
+
+    function render(press: boolean) {
+      const r = checked('motivo', 'jugador') as Reason;
+      const kit = checked('kit', 'blanca') as Kit;
+      const name = nameInput.value.trim();
+      const isFront = r === 'sponsor' || r === 'amistoso';
+
+      svg.classList.remove('camiseta--naranja', 'camiseta--blanca', 'camiseta--negra');
+      svg.classList.add(`camiseta--${kit}`);
+      prenda!.dataset.face = isFront ? 'frente' : 'espalda';
+      caraLabel.textContent = `${isFront ? 'Frente' : 'Espalda'} · camiseta ${kitNames[kit]}`;
+      numField.hidden = r !== 'jugador';
+
+      if (isFront) {
+        const top = r === 'sponsor' ? name || 'Tu marca' : 'Fratellos';
+        const bottom = r === 'sponsor' ? 'Rumbo a Brasil' : `vs ${name || 'Tu equipo'}`;
+        bandaArriba.textContent = top.toUpperCase();
+        bandaAbajo.textContent = bottom.toUpperCase();
+        bandaArriba.setAttribute('font-size', String(fit(top, 36, 200)));
+        bandaAbajo.setAttribute('font-size', String(fit(bottom, 26, 200)));
+      } else {
+        const back = (name || 'Tu nombre').toUpperCase();
+        nombrePath.textContent = back;
+        nombre.setAttribute('font-size', String(fit(back, 30, 150)));
+        const dorsal = r === 'hincha' ? '12' : number() || '10';
+        numeros.forEach((n) => (n.textContent = dorsal));
+      }
+
+      output.textContent = buildMessage(r, name, r === 'jugador' ? number() : '');
+      if (press) stamp(svg);
+    }
+
+    form.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.name === 'motivo') {
+        nameLabel.textContent = target.dataset.nameLabel ?? 'Tu nombre';
+        nameInput.placeholder = target.dataset.placeholder ?? '';
+      }
+      if (target.name === 'motivo' || target.name === 'kit') render(true);
+    });
+
+    form.addEventListener('input', (e) => {
+      if ((e.target as HTMLInputElement).type === 'radio') return;
+      render(false);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => stamp(svg), 260);
+    });
+
+    form.addEventListener('submit', (e) => e.preventDefault());
+
+    send.addEventListener('click', async () => {
+      const ok = await copyText(output.textContent ?? '');
+      estado.dataset.state = ok ? 'ok' : 'error';
+      estado.textContent = ok
+        ? 'Listo: copiamos el mensaje. Pegalo en el chat de @fratellosfutbolclub que se abrió y mandalo.'
+        : 'No pudimos copiarlo solo. Seleccioná el mensaje de arriba, copialo y pegalo en el chat que se abrió.';
+    });
+
+    document.querySelectorAll<HTMLAnchorElement>('[data-preset]').forEach((link) => {
+      link.addEventListener('click', () => {
+        const input = form.querySelector<HTMLInputElement>(`input[name="motivo"][value="${link.dataset.preset}"]`);
+        if (input) {
+          input.checked = true;
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    });
+
+    render(false);
+  }
+</script>
+
+<style>
+  .estampa {
+    display: grid;
+    gap: 40px;
+  }
+
+  @media (min-width: 1024px) {
+    .estampa {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: start;
+      gap: 48px;
+    }
+    .estampa__vitrina {
+      position: sticky;
+      top: 96px;
+    }
+  }
+
+  /* En el teléfono la camiseta queda a la vista mientras se escribe. */
+  @media (max-width: 1023px) {
+    .estampa {
+      gap: 0;
+    }
+    .estampa__vitrina {
+      position: sticky;
+      top: 63px;
+      z-index: 2;
+      margin-inline: -16px;
+      padding: 12px 16px 14px;
+      background-color: var(--negro);
+      background-image:
+        var(--malla-negra),
+        repeating-linear-gradient(90deg, transparent 0 23px, rgb(244 80 10 / 0.3) 23px 24px);
+      box-shadow: 0 10px 16px -12px rgb(0 0 0 / 0.9);
+    }
+    .estampa__prenda {
+      width: min(62vw, calc(30vh * 300 / 320), 300px);
+      margin-inline: auto;
+    }
+    .estampa__panel {
+      margin-top: 20px;
+    }
+    .estampa:has(.estampa__input:focus) .estampa__prenda {
+      width: min(40vw, calc(18vh * 300 / 320), 200px);
+    }
+    .estampa:has(.estampa__input:focus) .estampa__cara {
+      display: none;
+    }
+  }
+
+  .estampa__prenda {
+    max-width: 400px;
+    margin-inline: auto;
+  }
+
+  .estampa__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 22px 26px rgb(0 0 0 / 0.55));
+  }
+
+  .estampa__prenda[data-face='espalda'] .cara--frente,
+  .estampa__prenda[data-face='frente'] .cara--espalda {
+    display: none;
+  }
+
+  .estampa__cara {
+    margin-top: 12px;
+    text-align: center;
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 700;
+    font-size: 0.9375rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.65);
+  }
+
+  /* Panel: la etiqueta interior de la camiseta, satinada y con pespunte. */
+  .estampa__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: clamp(32px, 3.4vw, 48px) clamp(20px, 3vw, 44px) clamp(24px, 3vw, 40px);
+    border-radius: 2px 2px 10px 10px;
+    background:
+      linear-gradient(90deg, rgb(255 255 255 / 0.03), transparent 20%, transparent 80%, rgb(255 255 255 / 0.03)),
+      repeating-linear-gradient(180deg, #1f1d1b 0 2px, #1a1816 2px 3px);
+    box-shadow: 0 30px 50px -30px rgb(0 0 0 / 0.9);
+  }
+
+  .estampa__panel::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1.5px dashed rgb(255 255 255 / 0.28);
+    border-radius: 2px 2px 7px 7px;
+    pointer-events: none;
+  }
+
+  .estampa__presilla {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 72px;
+    height: 18px;
+    border-radius: 3px;
+    background: var(--naranja);
+    transform: translateX(-50%);
+  }
+
+  /* En el teléfono, nombre y número van primero: se escriben con la camiseta arriba. */
+  @media (max-width: 1023px) {
+    .estampa__bloque--campos {
+      order: 1;
+    }
+    .estampa__bloque--motivos {
+      order: 2;
+    }
+    .estampa__bloque--kit {
+      order: 3;
+    }
+    .estampa__bloque--mensaje {
+      order: 4;
+    }
+    .estampa__bloque--enviar {
+      order: 5;
+    }
+  }
+
+  .estampa__legend {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .estampa__motivos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .motivo,
+  .kit {
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+
+  .motivo input,
+  .kit input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  .motivo__parche {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    background: var(--negro);
+    color: rgb(255 255 255 / 0.85);
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.1875rem;
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.18);
+    transition: background-color 120ms steps(2, end), color 120ms steps(2, end);
+  }
+
+  .motivo__parche::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px dashed currentColor;
+    border-radius: 7px;
+    opacity: 0;
+  }
+
+  .motivo:hover .motivo__parche {
+    color: var(--blanco);
+    box-shadow: inset 0 0 0 1.5px rgb(244 80 10 / 0.8);
+  }
+
+  .motivo input:checked + .motivo__parche {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+    color: var(--negro);
+    box-shadow: none;
+  }
+
+  .motivo input:checked + .motivo__parche::after {
+    opacity: 0.5;
+  }
+
+  .motivo input:focus-visible + .motivo__parche,
+  .kit input:focus-visible ~ .kit__muestra {
+    outline: 3px solid var(--blanco);
+    outline-offset: 3px;
+  }
+
+  .estampa__kits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .kit {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 6px 16px 6px 6px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.18);
+  }
+
+  .kit:has(input:checked) {
+    box-shadow: inset 0 0 0 2px var(--naranja);
+  }
+
+  .kit__muestra {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.3);
+  }
+
+  .kit__muestra--naranja {
+    background-color: var(--naranja);
+    background-image: var(--malla-naranja);
+  }
+
+  .kit__muestra--blanca {
+    background-color: var(--blanco);
+    background-image: var(--malla-blanca);
+  }
+
+  .kit__muestra--negra {
+    background-color: var(--negro);
+    background-image: repeating-linear-gradient(90deg, transparent 0 5px, rgb(244 80 10 / 0.6) 5px 6px);
+  }
+
+  .kit__nombre {
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.0625rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .estampa__campos {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .estampa__campos {
+      grid-template-columns: minmax(0, 1fr) 180px;
+    }
+  }
+
+  .estampa__campos [hidden] {
+    display: none;
+  }
+
+  .estampa__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.72);
+  }
+
+  .estampa__input {
+    width: 100%;
+    min-height: 56px;
+    padding: 12px 16px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--blanco);
+    color: var(--negro);
+    font-family: 'Big Shoulders Display Variable', 'Arial Narrow', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    box-shadow: inset 0 2px 0 rgb(0 0 0 / 0.12);
+  }
+
+  .estampa__input::placeholder {
+    color: #77716b;
+    text-transform: none;
+    font-family: 'Archivo Variable', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 1.0625rem;
+    letter-spacing: 0;
+  }
+
+  .estampa__input:focus-visible {
+    outline: 3px solid var(--naranja);
+    outline-offset: 2px;
+  }
+
+  .estampa__input--numero {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .estampa__texto {
+    display: block;
+    padding: 18px 20px;
+    border-radius: 4px;
+    background: var(--negro);
+    box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / 0.2);
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--blanco);
+    user-select: all;
+  }
+
+  .estampa__perfil {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: var(--blanco);
+    text-decoration: underline;
+    text-decoration-color: rgb(244 80 10 / 0.8);
+  }
+
+  .estampa__perfil:hover {
+    color: var(--naranja);
+  }
+
+  .estampa__estado {
+    min-height: 1.5em;
+    margin-top: 16px;
+    font-size: 0.9375rem;
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  .estampa__estado[data-state='ok'] {
+    color: var(--naranja);
+    font-weight: 600;
+  }
+</style>

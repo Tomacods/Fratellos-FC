@@ -1,0 +1,52 @@
+---
+// Juego de íconos propio: trazo 1.75, puntas redondeadas.
+interface Props {
+  name: 'instagram' | 'flecha' | 'externo' | 'play' | 'copiar';
+  class?: string;
+}
+const { name, class: className } = Astro.props;
+---
+
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.75"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'instagram' && (
+    <>
+      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.6" fill="currentColor" stroke="none" />
+    </>
+  )}
+  {name === 'flecha' && (
+    <>
+      <path d="M4 12h15" />
+      <path d="M13 6l6 6-6 6" />
+    </>
+  )}
+  {name === 'externo' && (
+    <>
+      <path d="M7 17L17 7" />
+      <path d="M9 7h8v8" />
+    </>
+  )}
+  {name === 'play' && (
+    <>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M10.2 8.8l5 3.2-5 3.2z" fill="currentColor" />
+    </>
+  )}
+  {name === 'copiar' && (
+    <>
+      <rect x="8.5" y="8.5" width="11" height="11" rx="2" />
+      <path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" />
+    </>
+  )}
+</svg>
