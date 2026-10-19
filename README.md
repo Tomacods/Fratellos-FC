@@ -38,44 +38,41 @@ npm run build
 npm run preview
 ```
 
-## Dónde se edita cada cosa
+## Panel de edición (Pages CMS)
 
-El contenido no está en el HTML: está todo en [`src/data/club.ts`](src/data/club.ts).
+El club edita el contenido solo, desde el navegador y sin tocar código, con [Pages CMS](https://pagescms.org) (gratis y open source). Cada vez que alguien guarda en el panel se hace un commit en `main` y Vercel publica la web nueva en uno o dos minutos.
 
-| Querés cambiar… | Editá en `club.ts` |
+Qué se edita desde el panel:
+
+| Sección del panel | Archivo |
 |---|---|
-| Datos del club y links de Instagram | `club` |
-| Fechas y sede de la Liga de las Américas (la cuenta regresiva sale de acá) | `americas` |
-| Parches de títulos del inicio | `titles` |
-| Resultados de la planilla | `matches` |
-| Jugadores del plantel | `players` |
-| Filtros del plantel | `rosterFilters` |
-| Sponsors | `mainSponsor` y `sponsors` |
-| Formas de ser sponsor | `sponsorSpots` |
-| Motivos de contacto | `reasons` |
+| Resultados | [`src/data/contenido/partidos.json`](src/data/contenido/partidos.json) |
+| Plantel | [`src/data/contenido/plantel.json`](src/data/contenido/plantel.json) |
+| Sponsors (principal, el resto y las formas de sumarse) | [`src/data/contenido/sponsors.json`](src/data/contenido/sponsors.json) |
+| Liga de las Américas (sede y fechas: la cuenta regresiva y el texto «Del … al …» salen de acá) | [`src/data/contenido/americas.json`](src/data/contenido/americas.json) |
+| Parches del inicio | [`src/data/contenido/titulos.json`](src/data/contenido/titulos.json) |
 
-Los textos de los mensajes de Instagram están en [`src/scripts/mensajes.ts`](src/scripts/mensajes.ts).
+Los formularios (etiquetas, ayudas y opciones de cada campo) están en [`.pages.yml`](.pages.yml). Si agregás un campo a un JSON, sumalo también ahí: el panel reescribe el archivo con los campos del formulario y borra los que no conoce.
+
+### Ponerlo en marcha (una sola vez)
+
+1. Subir estos cambios a `main`.
+2. Entrar a [app.pagescms.org](https://app.pagescms.org) con la cuenta de GitHub dueña del repo.
+3. Instalar la GitHub App de Pages CMS y darle acceso solo a `Tomacods/Fratellos-FC`.
+4. Abrir el repo en el panel y comprobar que aparecen las cinco secciones.
+5. En los colaboradores del repo, invitar por email a quien va a editar. No necesita cuenta de GitHub: entra con el link que le llega al mail.
+
+### Lo que queda en el código
+
+[`src/data/club.ts`](src/data/club.ts) lee los JSON, completa lo que se calcula solo y los entrega con tipos a los componentes. Ahí siguen, fuera del panel, los datos fijos del club y los links de Instagram (`club`), los filtros del plantel (`rosterFilters`: si agregás uno, sumalo también a las opciones de «Filtros» en `.pages.yml`) y los motivos de contacto (`reasons`). Los textos de los mensajes de Instagram están en [`src/scripts/mensajes.ts`](src/scripts/mensajes.ts).
 
 ### Jugadores
 
-Cada jugador tiene un campo `kit` (`'naranja'`, `'blanca'` o `'negra'`) que define la camiseta. La espalda muestra el campo `mark` (por ejemplo `MVP` o `×3`) mientras no tenga dorsal. **Cuando tengas el número real**, agregalo en `dorsal` y la espalda pasa a mostrarlo:
-
-```ts
-{
-  name: 'Víctor Villouta',
-  back: 'Villouta',
-  kit: 'negra',
-  dorsal: 10, // ejemplo: poné el número real
-  mark: 'MVP',
-  // ...
-}
-```
-
-Para un grupo (por ejemplo una camada de incorporaciones), `backs` recibe un apellido por camiseta y se muestran en abanico.
+Cada jugador tiene una camiseta (`kit`: naranja, blanca o negra). La espalda muestra la marca (`mark`, por ejemplo `MVP` o `×3`) mientras no tenga dorsal; cuando se carga el número real en `dorsal`, la espalda pasa a mostrarlo. Para un grupo (por ejemplo una camada de incorporaciones), `backs` recibe un apellido por camiseta y se muestran en abanico.
 
 ### Imágenes
 
-Van en [`public/img/`](public/img/). El escudo (`escudo.jpg`) es de 150 px, bajado del perfil de Instagram: si conseguís uno en alta resolución, reemplazalo con el mismo nombre.
+Van en [`public/img/`](public/img/); las que se suben desde el panel (por ejemplo las placas de resultados) quedan ahí también. El escudo (`escudo.jpg`) es de 150 px, bajado del perfil de Instagram: si conseguís uno en alta resolución, reemplazalo con el mismo nombre.
 
 ## Estructura
 
@@ -94,7 +91,9 @@ src/
     Camiseta.astro       Espalda de camiseta en SVG
     Telas.astro          Texturas de tela compartidas
     Icon.astro           Íconos
-  data/club.ts           Todo el contenido
+  data/contenido/*.json  Contenido que se edita desde el panel
+  data/club.ts           Lee el contenido y lo entrega con tipos
+  data/americas.ts       Fechas de la Liga de las Américas (también la usa la cuenta regresiva)
   scripts/mensajes.ts    Mensajes de Instagram y copiado
   styles/kit.css         Colores, texturas y piezas del sistema visual
 ```

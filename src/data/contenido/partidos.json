@@ -1,0 +1,67 @@
+[
+  {
+    "tournament": "Copa de la Liga 2026 · Liga de Honor",
+    "stage": "Semifinal",
+    "home": "Fratellos",
+    "away": "All In",
+    "score": "2-3",
+    "outcome": "perdido",
+    "scorers": "Joaquín Pires (2)",
+    "sourceLabel": "Placa oficial",
+    "sourceUrl": "https://www.instagram.com/fratellosfutbolclub/p/DWed26hEZdF/",
+    "plate": "/img/placa-2-3.jpg"
+  },
+  {
+    "tournament": "Copa de la Liga 2026 · Liga de Honor",
+    "stage": "Cuartos de final",
+    "home": "Fratellos",
+    "away": "Premium FC",
+    "score": "3-2",
+    "outcome": "ganado",
+    "scorers": "Mencho Gordillo, Juanpi Mancilla, Joaquín Pires",
+    "sourceLabel": "Placa oficial",
+    "sourceUrl": "https://www.instagram.com/fratellosfutbolclub/p/DVwC8aUkVL1/",
+    "plate": "/img/placa-3-2.jpg"
+  },
+  {
+    "tournament": "Copa de la Liga 2026 · Liga de Honor",
+    "stage": "Octavos de final",
+    "home": "Fratellos",
+    "away": "Taller Monra",
+    "score": "5-1",
+    "outcome": "ganado",
+    "scorers": "Juanpi Mancilla, Maxi Barría, Joaquín Pires, Salva Robacio, Dani De Brito",
+    "sourceLabel": "Placa oficial",
+    "sourceUrl": "https://www.instagram.com/fratellosfutbolclub/p/DVe_gmPkXJR/",
+    "plate": "/img/placa-5-1.jpg"
+  },
+  {
+    "tournament": "Comodoro Cup 2025 · Serie B",
+    "stage": "Final (vuelta)",
+    "home": "Ráfaga FC",
+    "away": "Fratellos",
+    "outcome": "campeon",
+    "scorers": "Jorge Galván, Maximiliano Barría, Santy Hoopmann (2)",
+    "sourceLabel": "Ver la final",
+    "sourceUrl": "https://www.youtube.com/watch?v=gD7NS5jnpn8"
+  },
+  {
+    "tournament": "Comodoro Cup 2025 · Serie B",
+    "stage": "Final (ida)",
+    "home": "Fratellos",
+    "away": "Ráfaga FC",
+    "outcome": "ganado",
+    "scorers": "Santiago Hoopmann, sobre el final",
+    "sourceLabel": "Crónica en Pasta de Campeón",
+    "sourceUrl": "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1"
+  },
+  {
+    "tournament": "Comodoro Cup 2025 · Serie B",
+    "stage": "Semifinal",
+    "home": "Fratellos",
+    "away": "Despreciados FC",
+    "outcome": "clasificado",
+    "sourceLabel": "Ver la semifinal",
+    "sourceUrl": "https://www.youtube.com/watch?v=W53OT88SA_Y"
+  }
+]

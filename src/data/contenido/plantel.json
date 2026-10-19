@@ -1,0 +1,104 @@
+[
+  {
+    "name": "Víctor Villouta",
+    "back": "Villouta",
+    "kit": "negra",
+    "role": "MVP Comodoro Cup Serie B",
+    "categories": ["final"],
+    "bio": "Elegido Jugador Más Valioso en el cuadro de honor oficial tras la consagración en la Serie B.",
+    "mark": "MVP",
+    "linkText": "Fuente: Pasta de Campeón",
+    "linkUrl": "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1"
+  },
+  {
+    "name": "Santiago «Santy» Hoopmann",
+    "back": "Hoopmann",
+    "kit": "blanca",
+    "role": "Figura y goleador de la final",
+    "categories": ["final"],
+    "bio": "Gol sobre el final en la ida y doblete en la vuelta en Santa Lucía: tres goles en la serie final.",
+    "mark": "×3",
+    "linkText": "Fuente: Pasta de Campeón",
+    "linkUrl": "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1"
+  },
+  {
+    "name": "Joaquín Pires",
+    "back": "Pires",
+    "kit": "negra",
+    "role": "Goleador Copa de la Liga 2026",
+    "categories": ["honor2026"],
+    "bio": "Gritó en octavos ante Taller Monra, sentenció el 3-2 a Premium FC y metió los dos goles de la semifinal.",
+    "mark": "×4",
+    "linkText": "Crónica en Instagram",
+    "linkUrl": "https://www.instagram.com/fratellosfutbolclub/p/DVwC8aUkVL1/"
+  },
+  {
+    "name": "Facundo Ledesma",
+    "back": "Ledesma",
+    "kit": "blanca",
+    "role": "Ala zurdo · Selección Argentina F7",
+    "categories": ["seleccion"],
+    "bio": "De General Garmendia, Tucumán. Convocado a la Selección Argentina F7 para la Copa Argentina (Misiones) y la Copa Aniversario (Chubut) 2026.",
+    "mark": "F7",
+    "linkText": "Presentación oficial en IG",
+    "linkUrl": "https://www.instagram.com/fratellosfutbolclub/reel/DdWXht6xAiE/"
+  },
+  {
+    "name": "Maximiliano Barría",
+    "back": "Barría",
+    "kit": "negra",
+    "role": "Goleador en la final · Camada 2025",
+    "categories": ["final", "camada2025", "honor2026"],
+    "bio": "Incorporación de la camada 2025, gol en la final ante Ráfaga FC y otro en el 5-1 a Taller Monra.",
+    "mark": "GOL",
+    "linkText": "Comunicado oficial",
+    "linkUrl": "https://www.instagram.com/p/DGV7_tHxvL2/"
+  },
+  {
+    "name": "Jorge Galván",
+    "back": "Galván",
+    "kit": "blanca",
+    "role": "Abrió la final de vuelta",
+    "categories": ["final"],
+    "bio": "Puso el primer gol de Fratellos en la final de vuelta en el complejo Santa Lucía.",
+    "mark": "1º",
+    "linkText": "Fuente: Pasta de Campeón",
+    "linkUrl": "https://www.pastadecampeon.com/a-dos-toques/fratellos-fc-se-corono-campeon-de-la-serie-b-en-la-comodoro-cup_a684345db4951f1bd9ff1d5d1"
+  },
+  {
+    "name": "Facundo González y Juan Pablo Mancilla Canales",
+    "back": "González · Mancilla",
+    "backs": ["González", "Mancilla"],
+    "kit": "negra",
+    "role": "Referentes · Liga de las Américas",
+    "categories": ["seleccion", "honor2026"],
+    "bio": "Voceros del plantel en Fair Play (100.1), impulsando la campaña rumbo a la Liga de las Américas en Brasil.",
+    "mark": "BR",
+    "linkText": "Nota en Fair Play",
+    "linkUrl": "https://www.instagram.com/p/DeAf9VhAZGE/"
+  },
+  {
+    "name": "Axel Igor, Franco Mansilla y Franco Morales",
+    "back": "Camada 2025",
+    "backs": ["Igor", "Mansilla", "Morales"],
+    "kit": "blanca",
+    "role": "Incorporaciones oficiales",
+    "categories": ["camada2025"],
+    "bio": "Bienvenida institucional para defender la naranja, negra y blanca en la Liga Comodoro Cup.",
+    "mark": "25",
+    "linkText": "Comunicado oficial",
+    "linkUrl": "https://www.instagram.com/p/DGV7_tHxvL2/"
+  },
+  {
+    "name": "Maximiliano Ortiz, Emiliano Orquera y Enzo Ralil",
+    "back": "Camada 2025",
+    "backs": ["Ortiz", "Orquera", "Ralil"],
+    "kit": "negra",
+    "role": "Incorporaciones oficiales",
+    "categories": ["camada2025"],
+    "bio": "Parte de la camada presentada oficialmente por Fratellos Fútbol Club en Comodoro Rivadavia.",
+    "mark": "25",
+    "linkText": "Comunicado oficial",
+    "linkUrl": "https://www.instagram.com/p/DGV7_tHxvL2/"
+  }
+]

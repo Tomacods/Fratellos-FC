@@ -1,0 +1,271 @@
+# Panel de edición del sitio (Pages CMS: https://app.pagescms.org).
+# Cada sección edita un archivo de src/data/contenido/. Al guardar se hace un commit en main
+# y Vercel publica la web nueva solo, en uno o dos minutos.
+
+media:
+  input: public/img
+  output: /img
+  rename: safe
+  categories: [image]
+
+settings:
+  commit:
+    identity: user
+    templates:
+      create: "contenido: crear {path} desde el panel"
+      update: "contenido: actualizar {path} desde el panel"
+      delete: "contenido: borrar {path} desde el panel"
+      rename: "contenido: renombrar {oldPath} a {newPath} desde el panel"
+
+content:
+  - name: partidos
+    label: Resultados
+    type: file
+    path: src/data/contenido/partidos.json
+    format: json
+    list: true
+    fields:
+      - name: tournament
+        label: Torneo
+        type: string
+        required: true
+        description: "Ej. Copa de la Liga 2026 · Liga de Honor. El orden de la lista es el de la planilla: el primero sale arriba."
+      - name: stage
+        label: Instancia
+        type: string
+        required: true
+        description: "Ej. Semifinal, Cuartos de final, Fecha 3"
+      - name: home
+        label: Local
+        type: string
+        required: true
+        description: "Escribí «Fratellos» así, tal cual, para que salga resaltado en naranja."
+      - name: away
+        label: Visitante
+        type: string
+        required: true
+      - name: score
+        label: Resultado
+        type: string
+        description: "Goles del local primero, ej. 3-2. Si lo dejás vacío se muestra el estado (Ganado, Campeón…)."
+      - name: outcome
+        label: Estado
+        type: select
+        required: true
+        options:
+          values:
+            - name: ganado
+              label: Ganado
+            - name: perdido
+              label: Perdido
+            - name: campeon
+              label: Campeón
+            - name: clasificado
+              label: A la final (clasificado)
+      - name: scorers
+        label: Goles del Frate
+        type: string
+        description: "Separados por coma, ej. Joaquín Pires (2), Maxi Barría"
+      - name: sourceLabel
+        label: Texto del link
+        type: string
+        required: true
+        description: "Ej. Placa oficial, Ver la final, Crónica en Pasta de Campeón"
+      - name: sourceUrl
+        label: Link de la fuente
+        type: string
+        required: true
+        description: "El post de Instagram, el video de YouTube o la nota. Si es de YouTube aparece el ícono de play."
+      - name: plate
+        label: Placa del resultado
+        type: image
+        description: "Opcional: la placa que se subió a Instagram. Se ve chiquita al lado del link."
+
+  - name: plantel
+    label: Plantel
+    type: file
+    path: src/data/contenido/plantel.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: Nombre completo
+        type: string
+        required: true
+      - name: back
+        label: Apellido en la espalda
+        type: string
+        required: true
+        description: "Lo que va arqueado sobre el número. Corto, ej. Villouta."
+      - name: backs
+        label: Apellidos del grupo
+        type: string
+        list: true
+        description: "Solo para grupos (una camada, una dupla): un apellido por camiseta y se muestran en abanico. Para un jugador solo, dejalo vacío."
+      - name: kit
+        label: Camiseta
+        type: select
+        required: true
+        options:
+          values:
+            - name: naranja
+              label: Naranja
+            - name: blanca
+              label: Blanca
+            - name: negra
+              label: Negra
+      - name: role
+        label: Rol o logro
+        type: string
+        required: true
+        description: "Ej. Goleador Copa de la Liga 2026"
+      - name: categories
+        label: Filtros
+        type: select
+        description: "En qué botones del filtro aparece. «Todos» lo muestra siempre."
+        options:
+          multiple: true
+          values:
+            - name: final
+              label: Héroes de la final
+            - name: honor2026
+              label: Copa de la Liga 2026
+            - name: seleccion
+              label: Selección y Brasil
+            - name: camada2025
+              label: Camada 2025
+      - name: bio
+        label: Bio
+        type: text
+        required: true
+      - name: dorsal
+        label: Dorsal
+        type: number
+        description: "El número real de la camiseta. Si lo cargás, reemplaza a la marca en la espalda."
+      - name: mark
+        label: Marca en la espalda
+        type: string
+        required: true
+        description: "Se ve mientras no haya dorsal. Hasta 3 o 4 caracteres, ej. MVP, ×3, GOL."
+        options:
+          maxlength: 4
+      - name: linkText
+        label: Texto del link
+        type: string
+        required: true
+        description: "Ej. Comunicado oficial, Presentación en IG"
+      - name: linkUrl
+        label: Link
+        type: string
+        required: true
+
+  - name: sponsors
+    label: Sponsors
+    type: file
+    path: src/data/contenido/sponsors.json
+    format: json
+    fields:
+      - name: main
+        label: Sponsor principal
+        type: object
+        required: true
+        fields:
+          - name: name
+            label: Marca
+            type: string
+            required: true
+            description: "Va en la banda del pecho: la primera palabra sale en naranja y el resto en negro."
+          - name: place
+            label: Dónde aparece
+            type: string
+            required: true
+      - name: sponsors
+        label: Sponsors
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{name}"
+        fields:
+          - name: name
+            label: Marca
+            type: string
+            required: true
+          - name: handle
+            label: Usuario de Instagram
+            type: string
+            required: true
+            description: "Sin la @, ej. lv_motorss"
+      - name: spots
+        label: Formas de ser sponsor
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Título
+            type: string
+            required: true
+          - name: text
+            label: Texto
+            type: text
+            required: true
+
+  - name: americas
+    label: Liga de las Américas
+    type: file
+    path: src/data/contenido/americas.json
+    format: json
+    fields:
+      - name: city
+        label: Sede
+        type: string
+        required: true
+      - name: firstDay
+        label: Primer día
+        type: date
+        required: true
+        description: "La cuenta regresiva del inicio cuenta los días hasta acá."
+        options:
+          format: yyyy-MM-dd
+      - name: lastDay
+        label: Último día
+        type: date
+        required: true
+        description: "Hasta este día inclusive se muestra «En juego». El texto «Del … al …» se arma solo."
+        options:
+          format: yyyy-MM-dd
+      - name: sourceUrl
+        label: Link de la fuente
+        type: string
+        required: true
+
+  - name: titulos
+    label: Parches del inicio
+    type: file
+    path: src/data/contenido/titulos.json
+    format: json
+    list: true
+    fields:
+      - name: top
+        label: Arriba
+        type: string
+        required: true
+        description: "Línea grande, ej. Serie A. Van hasta 4 parches: los dos primeros a la izquierda del escudo y el resto a la derecha."
+      - name: bottom
+        label: Abajo
+        type: string
+        required: true
+        description: "Ej. Campeón 2025"
+      - name: tone
+        label: Color
+        type: select
+        required: true
+        options:
+          values:
+            - name: naranja
+              label: Naranja
+            - name: negro
+              label: Negro

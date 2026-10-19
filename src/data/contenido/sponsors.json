@@ -1,0 +1,24 @@
+{
+  "main": { "name": "Timbó Store", "place": "En el pecho de la camiseta" },
+  "sponsors": [
+    { "name": "LV Motors", "handle": "lv_motorss" },
+    { "name": "Repair JLC", "handle": "repairjlc" },
+    { "name": "Zimska Vatra", "handle": "zimska.vatra.ok" },
+    { "name": "Antonella Servicios", "handle": "antonellaservicios" },
+    { "name": "Hangar Box & Training", "handle": "hangarboxandtraining" }
+  ],
+  "spots": [
+    {
+      "title": "En la camiseta",
+      "text": "Tu marca estampada en la naranja, la blanca o la negra, en la cancha y en cada placa del club."
+    },
+    {
+      "title": "En las redes",
+      "text": "Presencia en las publicaciones, los resultados y las transmisiones de @fratellosfutbolclub."
+    },
+    {
+      "title": "En el viaje a Brasil",
+      "text": "Acompañá al plantel que representa a Argentina en la Liga de las Américas en Porto Alegre."
+    }
+  ]
+}

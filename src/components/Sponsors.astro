@@ -1,6 +1,9 @@
 ---
 import { club, mainSponsor, sponsors, sponsorSpots } from '../data/club';
 import Icon from './Icon.astro';
+
+// La banda del pecho: la primera palabra en naranja y el resto en negro.
+const [mainFirst, ...mainRest] = mainSponsor.name.trim().split(/\s+/);
 ---
 
 <section id="sponsors" class="tela-blanca" aria-labelledby="sponsors-titulo">
@@ -13,8 +16,8 @@ import Icon from './Icon.astro';
 
       <figure class="pecho-sponsor mt-12">
         <div class="pecho-sponsor__banda" role="img" aria-label={`${mainSponsor.name}, sponsor principal`}>
-          <span class="pecho-sponsor__naranja">Timbó</span>
-          <span class="pecho-sponsor__negra">Store</span>
+          <span class="pecho-sponsor__naranja">{mainFirst}</span>
+          {mainRest.length > 0 && <span class="pecho-sponsor__negra">{mainRest.join(' ')}</span>}
           <span class="pecho-sponsor__filete" aria-hidden="true"></span>
         </div>
         <figcaption class="pecho-sponsor__lugar">{mainSponsor.place}</figcaption>
